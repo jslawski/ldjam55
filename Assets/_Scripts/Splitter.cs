@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Splitter : MonoBehaviour
 {
-    
-
     private LineRenderer lineRenderer;
     [SerializeField]
     private GameObject startingPoint;
@@ -13,9 +11,11 @@ public class Splitter : MonoBehaviour
     private GameObject endingPoint;
 
     [SerializeField]
+    private LayerMask splittableLayer;
+    [SerializeField]
     private LayerMask collisionLayer;
 
-    private float maxDistance = 3.0f;
+    private float maxDistance = 5.0f;
     public float currentDistance = 0.0f;
 
     // Start is called before the first frame update
@@ -47,8 +47,9 @@ public class Splitter : MonoBehaviour
                 this.UpdateSplitter(hit);
             }
         }
-        else
+        if (Input.GetMouseButtonUp(0))
         {
+            this.ExecuteSplits();
             this.CleanupSplitter();
         }        
     }
@@ -80,6 +81,25 @@ public class Splitter : MonoBehaviour
 
         this.lineRenderer.SetPosition(0, this.startingPoint.transform.position);
         this.lineRenderer.SetPosition(1, this.endingPoint.transform.position);
+    }
+
+    private void ExecuteSplits()
+    {
+        Vector3 origin = this.startingPoint.transform.position;
+        Vector3 direction = (this.endingPoint.transform.position - this.startingPoint.transform.position).normalized;
+        RaycastHit[] hits = Physics.RaycastAll(origin, direction, this.currentDistance, this.splittableLayer);
+        
+        if (hits.Length > 0)
+        {
+            for (int i = 0; i < hits.Length; i++)
+            {
+                SplittableObject splitComponent = hits[i].collider.gameObject.GetComponentInParent<SplittableObject>();
+                if (splitComponent != null)
+                {
+                    splitComponent.Split(direction);
+                }
+            }
+        }
     }
 
     private void CleanupSplitter()
