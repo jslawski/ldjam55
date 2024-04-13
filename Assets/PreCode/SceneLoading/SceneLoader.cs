@@ -8,8 +8,9 @@ public class SceneLoader : MonoBehaviour
 {
     public static SceneLoader instance;
 
+    [HideInInspector]
     public string nextSceneName;
-
+    
     private FadePanelManager fadeManager;
 
     private void Awake()
@@ -18,13 +19,16 @@ public class SceneLoader : MonoBehaviour
         {
             instance = this;
         }
+
+        this.fadeManager = GetComponentInChildren<FadePanelManager>();
+
+        DontDestroyOnLoad(this);
     }
 
     public void LoadScene(string sceneName)
     {
         this.nextSceneName = sceneName;
 
-        fadeManager = GameObject.Find("FadePanel").GetComponent<FadePanelManager>();
         fadeManager.GetComponent<Image>().enabled = true;
         fadeManager.OnFadeSequenceComplete += this.LoadNextScene;
         fadeManager.FadeToBlack();
@@ -45,14 +49,12 @@ public class SceneLoader : MonoBehaviour
             yield return null;
         }
         
-        fadeManager = GameObject.Find("FadePanel").GetComponent<FadePanelManager>();
         fadeManager.GetComponent<Image>().enabled = true;
         fadeManager.FadeFromBlack();
     }
 
     public void QuitGame()
     {
-        fadeManager = GameObject.Find("FadePanel").GetComponent<FadePanelManager>();
         fadeManager.OnFadeSequenceComplete += this.CloseGame;
         fadeManager.FadeToBlack();
     }
