@@ -179,5 +179,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   splittableObjectPrefab: {fileID: 6277313059597502053}
+  colliderObject: {fileID: 2413175126204896528}
   splitScalePercent: 0.75
   rigidBody: {fileID: 6178632102424588411}

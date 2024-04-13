@@ -7,9 +7,30 @@ public class SplittableObject : MonoBehaviour
     [SerializeField]
     private GameObject splittableObjectPrefab;
     [SerializeField]
+    private GameObject colliderObject;
+    [SerializeField]
     private float splitScalePercent = 0.75f;
     [SerializeField]
     private Rigidbody rigidBody;
+
+    private int inertFrames = 5;
+
+    private void Awake()
+    {
+        StartCoroutine(this.UpdateLayer());
+    }
+
+    private IEnumerator UpdateLayer()
+    {
+        this.colliderObject.layer = LayerMask.NameToLayer("Inert");
+
+        for (int i = 0; i < this.inertFrames; i++)
+        {
+            yield return new WaitForFixedUpdate();
+        }
+
+        this.colliderObject.layer = LayerMask.NameToLayer("Splittable");
+    }
 
     private void SpawnNewSplittableObjects(Vector3 splitDirection)
     {
@@ -19,7 +40,7 @@ public class SplittableObject : MonoBehaviour
         firstObject.transform.localScale = this.gameObject.transform.localScale * this.splitScalePercent;
         secondObject.transform.localScale = this.gameObject.transform.localScale * this.splitScalePercent;
 
-        Vector3 launchDirection = Vector2.Perpendicular(splitDirection).normalized * 3.0f;
+        Vector3 launchDirection = Vector2.Perpendicular(splitDirection).normalized * 0.5f;
 
         firstObject.GetComponent<SplittableObject>().Launch(-launchDirection);
         secondObject.GetComponent<SplittableObject>().Launch(launchDirection);
