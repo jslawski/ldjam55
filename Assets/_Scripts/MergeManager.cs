@@ -133,7 +133,7 @@ public class MergeManager : MonoBehaviour
         newObject.transform.localScale = newScale;
 
         SplittableObject splittableComponent = newObject.GetComponent<SplittableObject>();
-        splittableComponent.rigidBody.mass = newMass;        
+        splittableComponent.rigidBody.mass = newMass;
         splittableComponent.Launch(launchVelocity);
 
         this.AddUnmergedObject(splittableComponent);

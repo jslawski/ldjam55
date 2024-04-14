@@ -54,7 +54,7 @@ public class SpeedSplitter : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(1) == true)
+        if (Input.GetMouseButtonDown(0) == true && FocusModeManager.instance.focusActive == false)
         {
             Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -64,7 +64,7 @@ public class SpeedSplitter : MonoBehaviour
                 this.SetupSplitter(hit);
             }
         }
-        if (Input.GetMouseButton(1) == true)
+        if (Input.GetMouseButton(0) == true && FocusModeManager.instance.focusActive == false)
         {
             Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -75,7 +75,7 @@ public class SpeedSplitter : MonoBehaviour
                 this.ExecuteSplits();
             }
         }
-        if (Input.GetMouseButtonUp(1) == true)
+        if (Input.GetMouseButtonUp(0) == true)
         {
             this.CleanupSplitter();
         }

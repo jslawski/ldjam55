@@ -47,7 +47,7 @@ public class SplittableObject : MonoBehaviour
 
     private int unmergeableFrames = 10;
 
-    private float splitSpeed = 10.0f;
+    private float splitSpeed = 20.0f;
 
     public Vector3 previousVelocity;
 
@@ -59,6 +59,8 @@ public class SplittableObject : MonoBehaviour
 
     private float sizeMultiplier = 1.0f;
     private float alignmentMultiplier = 1.0f;
+
+    private int baseMultiplier = 10;
 
     private void Awake()
     {
@@ -175,17 +177,17 @@ public class SplittableObject : MonoBehaviour
         splittable1.objectAlignment = Alignment.Good;
         splittable2.objectAlignment = Alignment.Bad;
 
-        splittable1.rigidBody.mass = splittable1.rigidBody.mass * this.splitScalePercent;
-        splittable2.rigidBody.mass = splittable2.rigidBody.mass * this.splitScalePercent;
+        splittable1.rigidBody.mass = this.rigidBody.mass * this.splitScalePercent;
+        splittable2.rigidBody.mass = this.rigidBody.mass * this.splitScalePercent;        
 
         splittable1.previousVelocity = this.launchVelocity1;
         splittable2.previousVelocity = this.launchVelocity2;
 
-        firstObject.GetComponent<SplittableObject>().Launch(this.launchVelocity1 * this.rigidBody.mass);
-        secondObject.GetComponent<SplittableObject>().Launch(this.launchVelocity2 * this.rigidBody.mass);
+        splittable1.Launch(this.launchVelocity1 * splittable1.rigidBody.mass);
+        splittable2.Launch(this.launchVelocity2 * splittable2.rigidBody.mass);
 
-        MergeManager.instance.AddUnmergedObject(firstObject.GetComponent<SplittableObject>());
-        MergeManager.instance.AddUnmergedObject(secondObject.GetComponent<SplittableObject>());
+        MergeManager.instance.AddUnmergedObject(splittable1);
+        MergeManager.instance.AddUnmergedObject(splittable2);
     }
 
     public void Launch(Vector3 launchDirection)
@@ -285,10 +287,10 @@ public class SplittableObject : MonoBehaviour
         }
     }
 
-    public float GetScoreMultiplier()
+    public int GetScoreMultiplier()
     {
         float alignmentMultiplier = NEUTRAL_MULTIPLIER;
-        float massMultiplier = 10.0f * this.rigidBody.mass;
+        float massMultiplier = this.baseMultiplier * this.rigidBody.mass;
 
         if (this.objectAlignment == Alignment.Good)
         {
@@ -299,6 +301,6 @@ public class SplittableObject : MonoBehaviour
             alignmentMultiplier = BAD_MULTIPLIER;
         }
 
-        return (alignmentMultiplier * massMultiplier);
+        return Mathf.RoundToInt(alignmentMultiplier * massMultiplier);
     }
 }

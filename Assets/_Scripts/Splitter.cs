@@ -18,6 +18,8 @@ public class Splitter : MonoBehaviour
     private float maxDistance = 5.0f;
     public float currentDistance = 0.0f;
 
+    private bool isSetup = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +29,16 @@ public class Splitter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (FocusModeManager.instance.focusActive == false)
+        {
+            if (this.isSetup == true)
+            {
+                this.CleanupSplitter();
+            }
+
+            return;
+        }
+    
         if (Input.GetMouseButtonDown(0) == true)
         {
             Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -37,6 +49,7 @@ public class Splitter : MonoBehaviour
                 this.SetupSplitter(hit);
             }
         }
+        
         if (Input.GetMouseButton(0) == true)
         {
             Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -44,15 +57,23 @@ public class Splitter : MonoBehaviour
 
             if (Physics.Raycast(mouseRay, out hit, float.PositiveInfinity, this.collisionLayer))
             {
-                this.UpdateSplitter(hit);
-                this.UpdatePredictionLines();
+                if (this.isSetup == true)
+                {
+                    this.UpdateSplitter(hit);
+                    this.UpdatePredictionLines();
+                }
+                else
+                {
+                    this.SetupSplitter(hit);
+                }
             }
         }
-        if (Input.GetMouseButtonUp(0))
+
+        if (Input.GetMouseButtonUp(0) && this.isSetup == true)
         {
             this.ExecuteSplits();
             this.CleanupSplitter();
-        }        
+        }
     }
 
     private void SetupSplitter(RaycastHit hit)
@@ -70,6 +91,8 @@ public class Splitter : MonoBehaviour
         {
             FocusModeManager.instance.EnterFocusMode(this.startingPoint.transform.position);
         }
+
+        this.isSetup = true;
     }
 
     private void UpdateSplitter(RaycastHit hit)
@@ -139,5 +162,7 @@ public class Splitter : MonoBehaviour
         {
             FocusModeManager.instance.ExitFocusMode();
         }
+
+        this.isSetup = false;
     }
 }

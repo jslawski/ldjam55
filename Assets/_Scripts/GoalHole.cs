@@ -6,28 +6,22 @@ public class GoalHole : MonoBehaviour
 {
     [SerializeField]
     private AudioClip victorySound;
-
-// Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField]
+    private int scoreValue = 100;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Splittable")
-        {               
-            MergeManager.instance.RemoveUnmergedObject(other.gameObject.GetComponent<SplittableObject>());
+        {
+            SplittableObject splittableComponent = other.gameObject.GetComponent<SplittableObject>();
+
+            MergeManager.instance.RemoveUnmergedObject(splittableComponent);
 
             AudioChannelSettings channelSettings = new AudioChannelSettings();
 
             AudioManager.instance.Play(this.victorySound, channelSettings);
+
+            ScoreKeeper.instance.UpdateScore(splittableComponent, this.scoreValue);
         }
     }
 }

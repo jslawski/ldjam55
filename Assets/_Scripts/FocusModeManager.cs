@@ -40,7 +40,8 @@ public class FocusModeManager : MonoBehaviour
 
     private bool focusDepleted = false;
 
-    private bool focusActive = false;
+    [HideInInspector]
+    public bool focusActive = false;
 
     private Coroutine focusReplenishCoroutine = null;
 
