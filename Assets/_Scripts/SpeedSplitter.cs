@@ -44,8 +44,8 @@ public class SpeedSplitter : MonoBehaviour
 
     private float sphereRadius = 0.1f;
 
-    private float minSpeedThreshold = 8.0f;
-    private float maxSpeed = 80.0f;
+    private float minSpeedThreshold = 50f;
+    private float maxSpeed = 120.0f;
 
     private void Awake()
     {
@@ -131,6 +131,8 @@ public class SpeedSplitter : MonoBehaviour
         this.currentPosition = hit.point;
         this.AddPreviousPosition(this.currentPosition);
 
+        FocusModeManager.instance.EnterFocusMode(this.currentPosition);
+
         if (this.isDebug == true)
         {
             this.SetupDebugSplitter();
@@ -202,6 +204,8 @@ public class SpeedSplitter : MonoBehaviour
         {
             this.CleanupDebugSplitter();
         }
+
+        FocusModeManager.instance.ExitFocusMode();
     }
 
     private void CleanupDebugSplitter()

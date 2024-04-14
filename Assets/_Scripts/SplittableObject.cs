@@ -120,8 +120,8 @@ public class SplittableObject : MonoBehaviour
         Vector3 launchDirection1 = Vector2.Perpendicular(splitDirection).normalized;
         Vector3 launchDirection2 = -launchDirection1;
 
-        Vector3 spawnPosition1 = this.gameObject.transform.position + (launchDirection1 * (originalBallRadius + (0.25f * originalBallRadius)));
-        Vector3 spawnPosition2 = this.gameObject.transform.position + (launchDirection2 * (originalBallRadius + (0.25f * originalBallRadius)));
+        Vector3 spawnPosition1 = this.gameObject.transform.position + (launchDirection1 * (originalBallRadius + (0.00f * originalBallRadius)));
+        Vector3 spawnPosition2 = this.gameObject.transform.position + (launchDirection2 * (originalBallRadius + (0.00f * originalBallRadius)));
 
         Vector3 adjustment1 = Vector3.zero;
         Vector3 adjustment2 = Vector3.zero;

@@ -64,7 +64,8 @@ public class Splitter : MonoBehaviour
         this.lineRenderer.SetPosition(1, this.startingPoint.transform.position);
 
         this.startingPoint.transform.position = hit.point;
-        
+
+        FocusModeManager.instance.EnterFocusMode(this.startingPoint.transform.position);
     }
 
     private void UpdateSplitter(RaycastHit hit)
@@ -81,6 +82,8 @@ public class Splitter : MonoBehaviour
 
         this.lineRenderer.SetPosition(0, this.startingPoint.transform.position);
         this.lineRenderer.SetPosition(1, this.endingPoint.transform.position);
+
+        //FocusModeManager.instance.SetTargetPoint(Vector3.Lerp(this.startingPoint.transform.position, this.endingPoint.transform.position, 0.5f));
     }
 
     private void ExecuteSplits()
@@ -110,5 +113,7 @@ public class Splitter : MonoBehaviour
 
         this.lineRenderer.SetPosition(0, this.startingPoint.transform.position);
         this.lineRenderer.SetPosition(1, this.startingPoint.transform.position);
+
+        FocusModeManager.instance.ExitFocusMode();
     }
 }
