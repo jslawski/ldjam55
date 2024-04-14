@@ -92,7 +92,7 @@ public class Splitter : MonoBehaviour
     {
         Vector3 origin = this.startingPoint.transform.position;
         Vector3 direction = (this.endingPoint.transform.position - this.startingPoint.transform.position).normalized;
-        RaycastHit[] hits = Physics.RaycastAll(origin, direction, this.currentDistance, this.splittableLayer);
+        RaycastHit[] hits = Physics.SphereCastAll(origin, 0.1f, direction, this.currentDistance, this.splittableLayer);
 
         if (hits.Length > 0)
         {
@@ -111,8 +111,8 @@ public class Splitter : MonoBehaviour
     {
         Vector3 origin = this.startingPoint.transform.position;
         Vector3 direction = (this.endingPoint.transform.position - this.startingPoint.transform.position).normalized;
-        RaycastHit[] hits = Physics.RaycastAll(origin, direction, this.currentDistance, this.splittableLayer);
-        
+        RaycastHit[] hits = Physics.SphereCastAll(origin, 0.1f, direction, this.currentDistance, this.splittableLayer);
+
         if (hits.Length > 0)
         {
             for (int i = 0; i < hits.Length; i++)

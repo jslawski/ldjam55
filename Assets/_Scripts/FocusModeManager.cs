@@ -11,10 +11,11 @@ public class FocusModeManager : MonoBehaviour
     private float maxFixedTime;
 
     [SerializeField]
-    private AnimationCurve slowDownCurve;
-
+    private AnimationCurve enterCurve;
     [SerializeField]
-    private float enterDuration = 2.0f;
+    private AnimationCurve exitCurve;
+
+    private float enterDuration = 0.25f;
 
     [SerializeField]
     private Transform cameraHolderTransform;
@@ -22,7 +23,7 @@ public class FocusModeManager : MonoBehaviour
     
     private float originalCameraFOV;
     [SerializeField]
-    private float targetCameraFOV = 30.0f;
+    private float targetCameraFOV = 50.0f;
 
     private Vector3 originalCameraRotation;
     private Vector3 targetCameraRotation = Vector3.zero;
@@ -34,9 +35,8 @@ public class FocusModeManager : MonoBehaviour
 
     public bool focusOnClick = false;
 
-    public float totalFocusTime = 3.0f;
+    private float totalFocusTime = 5.0f;
     private float currentFocusTime = 0.0f;
-    private float focusChangePerFixedUpdate;
 
     private bool focusDepleted = false;
 
@@ -46,6 +46,8 @@ public class FocusModeManager : MonoBehaviour
 
     [SerializeField]
     private Image focusMeterImage;
+
+    private float tValue = 0.0f;
 
     private void Awake()
     {
@@ -62,11 +64,12 @@ public class FocusModeManager : MonoBehaviour
         this.originalCameraFOV = Camera.main.fieldOfView;
         this.originalCameraHolderPosition = this.cameraHolderTransform.position;
         this.originalCameraRotation = Camera.main.transform.rotation.eulerAngles;
+        this.targetCameraRotation = this.originalCameraRotation;
 
         this.currentFocusTime = this.totalFocusTime;
-        this.focusChangePerFixedUpdate = this.totalFocusTime * Time.fixedUnscaledDeltaTime;
     }
-    
+
+
     // Update is called once per frame
     void Update()
     {
@@ -104,7 +107,9 @@ public class FocusModeManager : MonoBehaviour
 
     public void SetTargetPoint(Vector3 targetPoint)
     {
-        this.targetCameraHolderPosition = new Vector3(0, 0, this.cameraHolderTransform.position.z);
+        this.targetCameraHolderPosition = this.originalCameraHolderPosition;    
+    
+    //this.targetCameraHolderPosition = new Vector3(0, 0, this.cameraHolderTransform.position.z);
         //this.targetCameraHolderPosition = new Vector3(targetPoint.x, targetPoint.y - (this.GetIsometricYOffset() * 2.0f), this.cameraHolderTransform.position.z);
     }
 
@@ -114,7 +119,7 @@ public class FocusModeManager : MonoBehaviour
     }
 
     public void EnterFocusMode(Vector3 targetPoint)
-    {
+    {           
         if (this.focusDepleted == true)
         {
             return;
@@ -129,13 +134,11 @@ public class FocusModeManager : MonoBehaviour
 
     private IEnumerator FocusModeCoroutine()
     {
-        float tValue = 0.0f;
-
         float incrementPerFrame;
-
-        while (tValue < 0.98f)
-        {
-            float curveValue = this.slowDownCurve.Evaluate(tValue);
+        
+        while (this.tValue < 0.98f && this.focusActive == true)
+        {        
+            float curveValue = this.enterCurve.Evaluate(tValue);
             
             Time.timeScale = Mathf.Lerp(1.0f, this.focusTimeScale, curveValue);
             Time.fixedDeltaTime = Mathf.Clamp(this.maxFixedTime * Time.timeScale, 0.0f, this.maxFixedTime);
@@ -145,31 +148,48 @@ public class FocusModeManager : MonoBehaviour
 
             Camera.main.transform.rotation = Quaternion.Lerp(Quaternion.Euler(this.originalCameraRotation), Quaternion.Euler(this.targetCameraRotation), curveValue);
 
-            incrementPerFrame = (1.0f / this.enterDuration) * Time.unscaledDeltaTime;            
+            incrementPerFrame = (1.0f / this.enterDuration) * Time.unscaledDeltaTime;
+
             tValue += incrementPerFrame;
-            
+
             yield return null;
         }
 
-        Time.timeScale = this.focusTimeScale;
-        Time.fixedDeltaTime = Mathf.Clamp(this.maxFixedTime * Time.timeScale, 0.0f, this.maxFixedTime);
-        Camera.main.fieldOfView = this.targetCameraFOV;
-        this.cameraHolderTransform.position = this.targetCameraHolderPosition;
-        Camera.main.transform.rotation = Quaternion.Euler(this.targetCameraRotation);
+        if (this.tValue >= 0.98)
+        {
+            Time.timeScale = this.focusTimeScale;
+            Time.fixedDeltaTime = Mathf.Clamp(this.maxFixedTime * Time.timeScale, 0.0f, this.maxFixedTime);
+            Camera.main.fieldOfView = this.targetCameraFOV;
+            this.cameraHolderTransform.position = this.targetCameraHolderPosition;
+            Camera.main.transform.rotation = Quaternion.Euler(this.targetCameraRotation);
+            this.tValue = 1.0f;
+        }
     }
 
     private IEnumerator DepleteFocus()
     {
-        while (this.currentFocusTime > 0.0f && this.focusActive == true)
+        float percentageIncrement;
+        float remainingPercentage = (this.currentFocusTime / this.totalFocusTime);
+    
+        while (remainingPercentage >= 0.0f && this.focusActive == true)
         {
-            this.currentFocusTime -= this.focusChangePerFixedUpdate;
+            percentageIncrement = (1.0f / this.totalFocusTime) * Time.unscaledDeltaTime;
+
+            remainingPercentage -= percentageIncrement;
+
+            this.currentFocusTime = this.totalFocusTime * remainingPercentage;
+
             this.focusMeterImage.fillAmount = (this.currentFocusTime / this.totalFocusTime);
-            yield return new WaitForFixedUpdate();
+
+            yield return null;
         }
 
-        if (this.currentFocusTime <= 0.0f)
+        if (remainingPercentage <= 0.0f)
         {
+            this.currentFocusTime = 0.0f;
             this.focusDepleted = true;
+            this.focusMeterImage.color = Color.gray;
+            this.focusMeterImage.fillAmount = 0.0f;
             this.ExitFocusMode();
         }
     }
@@ -178,7 +198,6 @@ public class FocusModeManager : MonoBehaviour
     {
         this.focusActive = false;
         
-        this.StopAllCoroutines();
         StartCoroutine(this.ExitFocusModeCoroutine());
 
         if (this.focusReplenishCoroutine == null)
@@ -189,21 +208,33 @@ public class FocusModeManager : MonoBehaviour
 
     private IEnumerator ReplenishFocus()
     {
-        while ((this.currentFocusTime < this.totalFocusTime) && ((this.focusDepleted == true) || (this.focusActive == false)))
-        {
-            this.currentFocusTime += this.focusChangePerFixedUpdate;
-            this.focusMeterImage.fillAmount = (this.currentFocusTime / this.totalFocusTime);
-            yield return new WaitForFixedUpdate();
-        }
+        float percentageIncrement;
+        float remainingPercentage = (this.currentFocusTime / this.totalFocusTime);
 
-        if (this.currentFocusTime > this.totalFocusTime)
+        while (remainingPercentage < 0.98f && ((this.focusDepleted == true) || (this.focusActive == false)))
+        {
+            percentageIncrement = (1.0f / this.totalFocusTime) * Time.unscaledDeltaTime;
+
+            remainingPercentage += percentageIncrement;
+
+            this.currentFocusTime = this.totalFocusTime * remainingPercentage;
+
+            this.focusMeterImage.fillAmount = (this.currentFocusTime / this.totalFocusTime);
+
+            yield return null;
+
+            }
+
+        if (remainingPercentage >= 0.98f)
         {
             this.currentFocusTime = this.totalFocusTime;
+            this.focusMeterImage.fillAmount = 1.0f;
         }
 
         if (this.focusDepleted == true && this.currentFocusTime == this.totalFocusTime)
         {
             this.focusDepleted = false;
+            this.focusMeterImage.color = Color.white;
         }
         
         this.focusReplenishCoroutine = null;
@@ -211,31 +242,34 @@ public class FocusModeManager : MonoBehaviour
 
     private IEnumerator ExitFocusModeCoroutine()
     {
-        float tValue = 0.0f;
-
         float incrementPerFrame;
 
-        while (tValue < 0.98f)
+        while (this.tValue > 0.0f && this.focusActive == false)
         {
-            float curveValue = this.slowDownCurve.Evaluate(tValue);
-            Time.timeScale = Mathf.Lerp(this.focusTimeScale, 1.0f, curveValue);
+            float curveValue = this.enterCurve.Evaluate(tValue);
+
+            Time.timeScale = Mathf.Lerp(1.0f, this.focusTimeScale, curveValue);
             Time.fixedDeltaTime = Mathf.Clamp(this.maxFixedTime * Time.timeScale, 0.0f, this.maxFixedTime);
 
-            Camera.main.fieldOfView = Mathf.Lerp(this.targetCameraFOV, this.originalCameraFOV, curveValue);
-            this.cameraHolderTransform.position = Vector3.Lerp(this.targetCameraHolderPosition, this.originalCameraHolderPosition, curveValue);
+            Camera.main.fieldOfView = Mathf.Lerp(this.originalCameraFOV, this.targetCameraFOV, curveValue);
+            this.cameraHolderTransform.position = Vector3.Lerp(this.originalCameraHolderPosition, targetCameraHolderPosition, curveValue);
 
-            Camera.main.transform.rotation = Quaternion.Lerp(Quaternion.Euler(this.targetCameraRotation), Quaternion.Euler(this.originalCameraRotation), curveValue);
+            Camera.main.transform.rotation = Quaternion.Lerp(Quaternion.Euler(this.originalCameraRotation), Quaternion.Euler(this.targetCameraRotation), curveValue);
 
             incrementPerFrame = (1.0f / this.enterDuration) * Time.unscaledDeltaTime;
-            tValue += incrementPerFrame;
+            tValue -= incrementPerFrame;
 
             yield return null;
         }
 
-        Time.timeScale = 1.0f;
-        Time.fixedDeltaTime = this.maxFixedTime;
-        Camera.main.fieldOfView = this.originalCameraFOV;
-        this.cameraHolderTransform.position = this.originalCameraHolderPosition;
-        Camera.main.transform.rotation = Quaternion.Euler(this.originalCameraRotation);
+        if (this.tValue <= 0.0f)
+        {
+            Time.timeScale = 1.0f;
+            Time.fixedDeltaTime = this.maxFixedTime;
+            Camera.main.fieldOfView = this.originalCameraFOV;
+            this.cameraHolderTransform.position = this.originalCameraHolderPosition;
+            Camera.main.transform.rotation = Quaternion.Euler(this.originalCameraRotation);
+            this.tValue = 0.0f;
+        }
     }
 }

@@ -47,9 +47,9 @@ public class SplittableObject : MonoBehaviour
 
     private int unmergeableFrames = 10;
 
-    private float splitSpeed = 20.0f;
+    private float splitSpeed = 10.0f;
 
-    private Vector3 previousVelocity;
+    public Vector3 previousVelocity;
 
     private Vector3 spawnPosition1;
     private Vector3 spawnPosition2;
@@ -161,7 +161,7 @@ public class SplittableObject : MonoBehaviour
 
     private void SpawnNewSplittableObjects(Vector3 splitDirection, float splitVelocityPercentage)
     {
-        this.CalculateSpawnAndLaunchVectors(splitDirection, splitVelocityPercentage);    
+        this.CalculateSpawnAndLaunchVectors(splitDirection, splitVelocityPercentage);
 
         GameObject firstObject = Instantiate(this.goodObjectPrefab, spawnPosition1, new Quaternion());
         GameObject secondObject = Instantiate(this.badObjectPrefab, spawnPosition2, new Quaternion());
@@ -176,7 +176,10 @@ public class SplittableObject : MonoBehaviour
         splittable2.objectAlignment = Alignment.Bad;
 
         splittable1.rigidBody.mass = splittable1.rigidBody.mass * this.splitScalePercent;
-        splittable2.rigidBody.mass = splittable2.rigidBody.mass * this.splitScalePercent;       
+        splittable2.rigidBody.mass = splittable2.rigidBody.mass * this.splitScalePercent;
+
+        splittable1.previousVelocity = this.launchVelocity1;
+        splittable2.previousVelocity = this.launchVelocity2;
 
         firstObject.GetComponent<SplittableObject>().Launch(this.launchVelocity1 * this.rigidBody.mass);
         secondObject.GetComponent<SplittableObject>().Launch(this.launchVelocity2 * this.rigidBody.mass);
@@ -209,8 +212,8 @@ public class SplittableObject : MonoBehaviour
         this.launchVelocity1 = Vector2.Perpendicular(splitDirection).normalized * scaledSplitSpeed;
         this.launchVelocity2 = -launchVelocity1;
 
-        this.spawnPosition1 = this.gameObject.transform.position + (this.launchVelocity1.normalized * originalBallRadius);
-        this.spawnPosition2 = this.gameObject.transform.position + (this.launchVelocity2.normalized * originalBallRadius);
+        this.spawnPosition1 = this.gameObject.transform.position + (this.launchVelocity1.normalized * (originalBallRadius + (0.25f * originalBallRadius)));
+        this.spawnPosition2 = this.gameObject.transform.position + (this.launchVelocity2.normalized * (originalBallRadius + (0.25f * originalBallRadius)));
 
         Vector3 adjustment1 = Vector3.zero;
         Vector3 adjustment2 = Vector3.zero;
@@ -221,14 +224,14 @@ public class SplittableObject : MonoBehaviour
         if (obstacle1.transform != null)
         {
             adjustment1 = (this.gameObject.transform.position - obstacle1.point).normalized;
-            this.spawnPosition1 = obstacle1.point + (adjustment1 * splitBallRadius);
+            this.spawnPosition1 = obstacle1.point + (adjustment1 * (splitBallRadius + 0.1f));
             this.launchVelocity1 = adjustment1 * scaledSplitSpeed;
         }
 
         if (obstacle2.transform != null)
         {
             adjustment2 = (this.gameObject.transform.position - obstacle2.point).normalized;
-            this.spawnPosition2 = obstacle2.point + (adjustment2 * splitBallRadius);
+            this.spawnPosition2 = obstacle2.point + (adjustment2 * (splitBallRadius + 0.1f));
             this.launchVelocity2 = adjustment2 * scaledSplitSpeed;
         }        
     }
