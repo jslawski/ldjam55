@@ -148,7 +148,13 @@ public class SplittableObject : MonoBehaviour
 
         firstObject.transform.localScale = this.gameObject.transform.localScale * this.splitScalePercent;
         secondObject.transform.localScale = this.gameObject.transform.localScale * this.splitScalePercent;
-        
+
+        SplittableObject splittable1 = firstObject.GetComponent<SplittableObject>();
+        SplittableObject splittable2 = secondObject.GetComponent<SplittableObject>();
+
+        splittable1.rigidBody.mass = splittable1.rigidBody.mass * this.splitScalePercent;
+        splittable2.rigidBody.mass = splittable2.rigidBody.mass * this.splitScalePercent;
+
         float scaledSplitSpeed = splitVelocityPercentage * this.splitSpeed;
 
         firstObject.GetComponent<SplittableObject>().Launch(launchDirection1 * scaledSplitSpeed);
@@ -160,7 +166,7 @@ public class SplittableObject : MonoBehaviour
 
     public void Launch(Vector3 launchDirection)
     {
-        this.rigidBody.AddForce(launchDirection, ForceMode.VelocityChange);
+        this.rigidBody.AddForce(launchDirection, ForceMode.Impulse);
     }
 
     public void Split(Vector3 splitDirection, float splitVelocityPercentage)

@@ -97,25 +97,27 @@ public class MergeManager : MonoBehaviour
 
             Vector3 spawnPoint = Vector3.Lerp(object1.gameObject.transform.position, object2.gameObject.transform.position, 0.5f);
             Vector3 compositeScale = (object1.gameObject.transform.localScale * (2.0f / 3.0f) + object2.gameObject.transform.localScale * (2.0f / 3.0f));
-            Vector3 compositeVelocity = (object1.rigidBody.velocity + object2.rigidBody.velocity);
+            Vector3 compositeVelocity = ((object1.rigidBody.velocity * object1.rigidBody.mass) + (object2.rigidBody.velocity * object2.rigidBody.mass));
+            float compositeMass = (object1.rigidBody.mass * (2.0f / 3.0f) + object2.rigidBody.mass * (2.0f / 3.0f));
 
             this.RemoveUnmergedObject(object1);
             this.RemoveUnmergedObject(object2);
 
-            this.SpawnMergedSplittableObject(spawnPoint, compositeScale, compositeVelocity);
+            this.SpawnMergedSplittableObject(spawnPoint, compositeScale, compositeVelocity, compositeMass);
         }
 
         this.mergingPairs.Clear();
     }
     
-    private void SpawnMergedSplittableObject(Vector3 spawnPoint, Vector3 newScale, Vector3 launchVelocity)
+    private void SpawnMergedSplittableObject(Vector3 spawnPoint, Vector3 newScale, Vector3 launchVelocity, float newMass)
     {
         GameObject newObject = Instantiate(this.splittableObjectPrefab, spawnPoint, new Quaternion());
 
         newObject.transform.localScale = newScale;
 
         SplittableObject splittableComponent = newObject.GetComponent<SplittableObject>();
-        splittableComponent.Launch(launchVelocity.normalized * 2.0f);
+        splittableComponent.rigidBody.mass = newMass;
+        splittableComponent.Launch(launchVelocity);
 
         this.AddUnmergedObject(splittableComponent);
     }
