@@ -2,17 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Alignment { Good, Bad, Neutral};
+
 public class SplittableObject : MonoBehaviour
 {
-    
+    public const float GOOD_MULTIPLIER = 1.5f;
+    public const float BAD_MULTIPLIER = -1.0f;
+    public const float NEUTRAL_MULTIPLIER = 1.0f;
+
     public bool splittable = false;
     
     public bool mergeable = false;
 
     public bool isMerging = false;
 
+    public Alignment objectAlignment = Alignment.Neutral;
+
     [SerializeField]
-    private GameObject splittableObjectPrefab;
+    private GameObject badObjectPrefab;
+    [SerializeField]
+    private GameObject goodObjectPrefab;
 
     [SerializeField]
     private float splitScalePercent = 0.75f;
@@ -47,6 +56,9 @@ public class SplittableObject : MonoBehaviour
 
     private Vector3 launchVelocity1;
     private Vector3 launchVelocity2;
+
+    private float sizeMultiplier = 1.0f;
+    private float alignmentMultiplier = 1.0f;
 
     private void Awake()
     {
@@ -151,14 +163,17 @@ public class SplittableObject : MonoBehaviour
     {
         this.CalculateSpawnAndLaunchVectors(splitDirection, splitVelocityPercentage);    
 
-        GameObject firstObject = Instantiate(this.splittableObjectPrefab, spawnPosition1, new Quaternion());
-        GameObject secondObject = Instantiate(this.splittableObjectPrefab, spawnPosition2, new Quaternion());
+        GameObject firstObject = Instantiate(this.goodObjectPrefab, spawnPosition1, new Quaternion());
+        GameObject secondObject = Instantiate(this.badObjectPrefab, spawnPosition2, new Quaternion());
 
         firstObject.transform.localScale = this.gameObject.transform.localScale * this.splitScalePercent;
         secondObject.transform.localScale = this.gameObject.transform.localScale * this.splitScalePercent;
 
         SplittableObject splittable1 = firstObject.GetComponent<SplittableObject>();
         SplittableObject splittable2 = secondObject.GetComponent<SplittableObject>();
+
+        splittable1.objectAlignment = Alignment.Good;
+        splittable2.objectAlignment = Alignment.Bad;
 
         splittable1.rigidBody.mass = splittable1.rigidBody.mass * this.splitScalePercent;
         splittable2.rigidBody.mass = splittable2.rigidBody.mass * this.splitScalePercent;       
@@ -265,5 +280,22 @@ public class SplittableObject : MonoBehaviour
             Vector3 reflectionVector = Vector3.Reflect(this.previousVelocity, collision.contacts[0].normal);
             this.rigidBody.velocity = reflectionVector;
         }
+    }
+
+    public float GetScoreMultiplier()
+    {
+        float alignmentMultiplier = NEUTRAL_MULTIPLIER;
+        float massMultiplier = 10.0f * this.rigidBody.mass;
+
+        if (this.objectAlignment == Alignment.Good)
+        {
+            alignmentMultiplier = GOOD_MULTIPLIER;
+        }
+        else if (this.objectAlignment == Alignment.Bad)
+        {
+            alignmentMultiplier = BAD_MULTIPLIER;
+        }
+
+        return (alignmentMultiplier * massMultiplier);
     }
 }

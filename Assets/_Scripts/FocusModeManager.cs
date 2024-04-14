@@ -12,14 +12,19 @@ public class FocusModeManager : MonoBehaviour
     [SerializeField]
     private AnimationCurve slowDownCurve;
 
-    private float enterDuration = 0.25f;
+    [SerializeField]
+    private float enterDuration = 2.0f;
 
     [SerializeField]
     private Transform cameraHolderTransform;
     private Vector3 originalCameraHolderPosition;
+    
     private float originalCameraFOV;
     [SerializeField]
     private float targetCameraFOV = 30.0f;
+
+    private Vector3 originalCameraRotation;
+    private Vector3 targetCameraRotation = Vector3.zero;
 
     [SerializeField]
     private LayerMask collisionLayer;
@@ -42,6 +47,7 @@ public class FocusModeManager : MonoBehaviour
         this.maxFixedTime = Time.fixedDeltaTime;
         this.originalCameraFOV = Camera.main.fieldOfView;
         this.originalCameraHolderPosition = this.cameraHolderTransform.position;
+        this.originalCameraRotation = Camera.main.transform.rotation.eulerAngles;
     }
     
     // Update is called once per frame
@@ -75,7 +81,8 @@ public class FocusModeManager : MonoBehaviour
 
     public void SetTargetPoint(Vector3 targetPoint)
     {
-        this.targetCameraHolderPosition = new Vector3(targetPoint.x, targetPoint.y - (this.GetIsometricYOffset() * 2.0f), this.cameraHolderTransform.position.z);
+        this.targetCameraHolderPosition = new Vector3(0, 0, this.cameraHolderTransform.position.z);
+        //this.targetCameraHolderPosition = new Vector3(targetPoint.x, targetPoint.y - (this.GetIsometricYOffset() * 2.0f), this.cameraHolderTransform.position.z);
     }
 
     private float GetIsometricYOffset()
@@ -105,6 +112,8 @@ public class FocusModeManager : MonoBehaviour
             Camera.main.fieldOfView = Mathf.Lerp(this.originalCameraFOV, this.targetCameraFOV, curveValue);
             this.cameraHolderTransform.position = Vector3.Lerp(this.originalCameraHolderPosition, targetCameraHolderPosition, curveValue);
 
+            Camera.main.transform.rotation = Quaternion.Lerp(Quaternion.Euler(this.originalCameraRotation), Quaternion.Euler(this.targetCameraRotation), curveValue);
+
             incrementPerFrame = (1.0f / this.enterDuration) * Time.unscaledDeltaTime;            
             tValue += incrementPerFrame;
             
@@ -115,28 +124,9 @@ public class FocusModeManager : MonoBehaviour
         Time.fixedDeltaTime = Mathf.Clamp(this.maxFixedTime * Time.timeScale, 0.0f, this.maxFixedTime);
         Camera.main.fieldOfView = this.targetCameraFOV;
         this.cameraHolderTransform.position = this.targetCameraHolderPosition;
-
-        //StartCoroutine(this.CameraZoomCoroutine());
+        Camera.main.transform.rotation = Quaternion.Euler(this.targetCameraRotation);
     }
-    /*
-    private IEnumerator CameraZoomCoroutine()
-    {
-        float elapsedTime = 0.0f;
 
-        while (Input.GetKey(KeyCode.Space))
-        {
-            Debug.LogError(Camera.main.fieldOfView * this.postZoomFOVIncrementPercent);
-  
-            
-
-            Camera.main.fieldOfView = Camera.main.fieldOfView * (1.0f / (elapsedTime + 1));
-
-            elapsedTime += Time.unscaledDeltaTime;
-
-            yield return null;
-        }
-    }
-    */
     public void ExitFocusMode()
     {
         this.StopAllCoroutines();
@@ -158,6 +148,8 @@ public class FocusModeManager : MonoBehaviour
             Camera.main.fieldOfView = Mathf.Lerp(this.targetCameraFOV, this.originalCameraFOV, curveValue);
             this.cameraHolderTransform.position = Vector3.Lerp(this.targetCameraHolderPosition, this.originalCameraHolderPosition, curveValue);
 
+            Camera.main.transform.rotation = Quaternion.Lerp(Quaternion.Euler(this.targetCameraRotation), Quaternion.Euler(this.originalCameraRotation), curveValue);
+
             incrementPerFrame = (1.0f / this.enterDuration) * Time.unscaledDeltaTime;
             tValue += incrementPerFrame;
 
@@ -168,5 +160,6 @@ public class FocusModeManager : MonoBehaviour
         Time.fixedDeltaTime = this.maxFixedTime;
         Camera.main.fieldOfView = this.originalCameraFOV;
         this.cameraHolderTransform.position = this.originalCameraHolderPosition;
+        Camera.main.transform.rotation = Quaternion.Euler(this.originalCameraRotation);
     }
 }

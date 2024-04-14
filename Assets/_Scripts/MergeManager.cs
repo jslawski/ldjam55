@@ -26,9 +26,12 @@ public class MergeManager : MonoBehaviour
     public static MergeManager instance;
 
     [SerializeField]
-    private GameObject splittableObjectPrefab;
+    private GameObject neutralObjectPrefab;
+    [SerializeField]
+    private GameObject goodObjectPrefab;
+    [SerializeField]
+    private GameObject badObjectPrefab;
 
-    
     [SerializeField]
     private List<SplittableObject> unmergedObjects;
     private List<MergePair> mergingPairs;
@@ -99,26 +102,54 @@ public class MergeManager : MonoBehaviour
             Vector3 compositeScale = (object1.gameObject.transform.localScale * (2.0f / 3.0f) + object2.gameObject.transform.localScale * (2.0f / 3.0f));
             Vector3 compositeVelocity = ((object1.rigidBody.velocity * object1.rigidBody.mass) + (object2.rigidBody.velocity * object2.rigidBody.mass));
             float compositeMass = (object1.rigidBody.mass * (2.0f / 3.0f) + object2.rigidBody.mass * (2.0f / 3.0f));
+            Alignment compositeAlignment = this.GetCompositeAlignment(object1.objectAlignment, object2.objectAlignment);
 
             this.RemoveUnmergedObject(object1);
             this.RemoveUnmergedObject(object2);
 
-            this.SpawnMergedSplittableObject(spawnPoint, compositeScale, compositeVelocity, compositeMass);
+            this.SpawnMergedSplittableObject(spawnPoint, compositeScale, compositeVelocity, compositeMass, compositeAlignment);
         }
 
         this.mergingPairs.Clear();
     }
     
-    private void SpawnMergedSplittableObject(Vector3 spawnPoint, Vector3 newScale, Vector3 launchVelocity, float newMass)
+    private void SpawnMergedSplittableObject(Vector3 spawnPoint, Vector3 newScale, Vector3 launchVelocity, float newMass, Alignment newAlignment)
     {
-        GameObject newObject = Instantiate(this.splittableObjectPrefab, spawnPoint, new Quaternion());
+        GameObject newObject;
 
+        switch (newAlignment)
+        {
+            case Alignment.Good:
+                newObject = Instantiate(this.goodObjectPrefab, spawnPoint, new Quaternion());
+                break;
+            case Alignment.Bad:
+                newObject = Instantiate(this.badObjectPrefab, spawnPoint, new Quaternion());
+                break;
+            default:
+                newObject = Instantiate(this.neutralObjectPrefab, spawnPoint, new Quaternion());
+                break;
+        }
+        
         newObject.transform.localScale = newScale;
 
         SplittableObject splittableComponent = newObject.GetComponent<SplittableObject>();
-        splittableComponent.rigidBody.mass = newMass;
+        splittableComponent.rigidBody.mass = newMass;        
         splittableComponent.Launch(launchVelocity);
 
         this.AddUnmergedObject(splittableComponent);
+    }
+
+    private Alignment GetCompositeAlignment(Alignment alignment1, Alignment alignment2)
+    {
+        if (alignment1 == Alignment.Good && alignment2 == Alignment.Good)
+        {
+            return Alignment.Good;
+        }
+        else if (alignment1 == Alignment.Bad && alignment2 == Alignment.Bad)
+        {
+            return Alignment.Bad;
+        }
+
+        return Alignment.Neutral;
     }
 }

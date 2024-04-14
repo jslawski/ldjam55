@@ -89,8 +89,6 @@ public class CameraFollow : MonoBehaviour
             this.transform.position = Vector3.Lerp(this.transform.position, targetPoint, this.snapSpeed * Time.fixedDeltaTime);
             yield return new WaitForFixedUpdate();
         }
-
-        
     }
 
     private IEnumerator RotateIn()

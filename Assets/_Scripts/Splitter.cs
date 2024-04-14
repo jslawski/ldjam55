@@ -27,7 +27,7 @@ public class Splitter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(1) == true)
+        if (Input.GetMouseButtonDown(0) == true)
         {
             Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -37,7 +37,7 @@ public class Splitter : MonoBehaviour
                 this.SetupSplitter(hit);
             }
         }
-        if (Input.GetMouseButton(1) == true)
+        if (Input.GetMouseButton(0) == true)
         {
             Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -48,7 +48,7 @@ public class Splitter : MonoBehaviour
                 this.UpdatePredictionLines();
             }
         }
-        if (Input.GetMouseButtonUp(1))
+        if (Input.GetMouseButtonUp(0))
         {
             this.ExecuteSplits();
             this.CleanupSplitter();
