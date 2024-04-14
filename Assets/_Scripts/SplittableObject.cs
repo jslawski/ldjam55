@@ -38,7 +38,7 @@ public class SplittableObject : MonoBehaviour
 
     private int unmergeableFrames = 10;
 
-    private float splitSpeed = 10.0f;
+    private float splitSpeed = 20.0f;
 
     private Vector3 previousVelocity;
 

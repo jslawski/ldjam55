@@ -22,7 +22,7 @@ public class GoalHole : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Splittable")
-        {        
+        {               
             MergeManager.instance.RemoveUnmergedObject(other.gameObject.GetComponent<SplittableObject>());
 
             AudioChannelSettings channelSettings = new AudioChannelSettings();

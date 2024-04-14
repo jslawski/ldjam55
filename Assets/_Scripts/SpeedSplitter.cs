@@ -44,7 +44,7 @@ public class SpeedSplitter : MonoBehaviour
 
     private float sphereRadius = 0.1f;
 
-    private float minSpeedThreshold = 50f;
+    private float minSpeedThreshold = 10f;
     private float maxSpeed = 120.0f;
 
     private void Awake()

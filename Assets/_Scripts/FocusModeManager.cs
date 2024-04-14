@@ -12,13 +12,14 @@ public class FocusModeManager : MonoBehaviour
     [SerializeField]
     private AnimationCurve slowDownCurve;
 
-    private float enterDuration = 0.5f;
+    private float enterDuration = 0.25f;
 
     [SerializeField]
     private Transform cameraHolderTransform;
     private Vector3 originalCameraHolderPosition;
     private float originalCameraFOV;
-    private float targetCameraFOV = 50.0f;
+    [SerializeField]
+    private float targetCameraFOV = 30.0f;
 
     [SerializeField]
     private LayerMask collisionLayer;
