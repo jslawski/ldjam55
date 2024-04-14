@@ -205,6 +205,7 @@ MonoBehaviour:
   splittable: 0
   mergeable: 0
   isMerging: 0
+  objectAlignment: 2
   badObjectPrefab: {fileID: 6277313059597502053, guid: e37cb9d88eb7ace4b87200cb45255bf4, type: 3}
   goodObjectPrefab: {fileID: 6277313059597502053, guid: 9f7da8956713e254aac50bddbbf37867, type: 3}
   splitScalePercent: 0.75
@@ -272,7 +273,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 56cbfbfd8d9e8bb4ab221ab4b0623b2d, type: 2}
+  - {fileID: 2100000, guid: 3a8927408da58cc43b00aea35d92282c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -456,7 +457,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 36ac095ba9b8f034a839648adc76e206, type: 2}
+  - {fileID: 2100000, guid: a549da9991a26a34cbef250febc3e970, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
