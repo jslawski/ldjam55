@@ -42,7 +42,10 @@ public class SpeedSplitter : MonoBehaviour
     [SerializeField]
     private LayerMask collisionLayer;
 
-    private float sphereRadius = 0.075f;
+    private float sphereRadius = 0.1f;
+
+    private float minSpeedThreshold = 8.0f;
+    private float maxSpeed = 80.0f;
 
     private void Awake()
     {
@@ -113,7 +116,14 @@ public class SpeedSplitter : MonoBehaviour
 
         this.previousPositions = tempQueue;
 
-        return distance / elapsedTime;
+        float currentSpeed = (distance / elapsedTime);
+
+        if (currentSpeed > this.maxSpeed)
+        {
+            currentSpeed = this.maxSpeed;
+        }
+
+        return currentSpeed;
     }
 
     private void SetupSplitter(RaycastHit hit)
@@ -159,16 +169,25 @@ public class SpeedSplitter : MonoBehaviour
 
     private void ExecuteSplits()
     {
-        RaycastHit[] hits = Physics.SphereCastAll(this.previousPositions.Peek().position, this.sphereRadius, this.currentPosition, this.GetSpeed(), this.splittableLayer);
+        if (this.GetSpeed() < this.minSpeedThreshold)
+        {
+            return;
+        }
+
+
+        Vector3 sphereCastDirection = this.currentPosition - this.previousPositions.Peek().position;
+
+        RaycastHit[] hits = Physics.SphereCastAll(this.previousPositions.Peek().position, this.sphereRadius, sphereCastDirection.normalized, sphereCastDirection.magnitude, this.splittableLayer);
 
         if (hits.Length > 0)
         {
             for (int i = 0; i < hits.Length; i++)
             {
-                SplittableObject splitComponent = hits[i].collider.gameObject.GetComponentInParent<SplittableObject>();
-                if (splitComponent != null)
+                SplittableObject splitComponent = hits[i].collider.gameObject.GetComponent<SplittableObject>();
+                if (splitComponent != null && splitComponent.splittable == true)
                 {
-                    splitComponent.Split(this.GetDirectionVector());
+                
+                    splitComponent.Split(this.GetDirectionVector(), (this.GetSpeed() / this.maxSpeed));
                 }
             }
         }

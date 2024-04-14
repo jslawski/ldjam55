@@ -27,7 +27,7 @@ public class Splitter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) == true)
+        if (Input.GetMouseButtonDown(1) == true)
         {
             Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -37,7 +37,7 @@ public class Splitter : MonoBehaviour
                 this.SetupSplitter(hit);
             }
         }
-        if (Input.GetMouseButton(0) == true)
+        if (Input.GetMouseButton(1) == true)
         {
             Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -47,7 +47,7 @@ public class Splitter : MonoBehaviour
                 this.UpdateSplitter(hit);
             }
         }
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(1))
         {
             this.ExecuteSplits();
             this.CleanupSplitter();
@@ -93,10 +93,10 @@ public class Splitter : MonoBehaviour
         {
             for (int i = 0; i < hits.Length; i++)
             {
-                SplittableObject splitComponent = hits[i].collider.gameObject.GetComponentInParent<SplittableObject>();
+                SplittableObject splitComponent = hits[i].collider.gameObject.GetComponent<SplittableObject>();
                 if (splitComponent != null)
                 {
-                    splitComponent.Split(direction);
+                    splitComponent.Split(direction, (this.currentDistance / this.maxDistance));
                 }
             }
         }
