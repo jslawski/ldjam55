@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FocusModeManager : MonoBehaviour
 {
@@ -33,6 +34,19 @@ public class FocusModeManager : MonoBehaviour
 
     public bool focusOnClick = false;
 
+    public float totalFocusTime = 3.0f;
+    private float currentFocusTime = 0.0f;
+    private float focusChangePerFixedUpdate;
+
+    private bool focusDepleted = false;
+
+    private bool focusActive = false;
+
+    private Coroutine focusReplenishCoroutine = null;
+
+    [SerializeField]
+    private Image focusMeterImage;
+
     private void Awake()
     {
         if (instance == null)
@@ -48,6 +62,9 @@ public class FocusModeManager : MonoBehaviour
         this.originalCameraFOV = Camera.main.fieldOfView;
         this.originalCameraHolderPosition = this.cameraHolderTransform.position;
         this.originalCameraRotation = Camera.main.transform.rotation.eulerAngles;
+
+        this.currentFocusTime = this.totalFocusTime;
+        this.focusChangePerFixedUpdate = this.totalFocusTime * Time.fixedUnscaledDeltaTime;
     }
     
     // Update is called once per frame
@@ -63,20 +80,26 @@ public class FocusModeManager : MonoBehaviour
             return;
         }
         
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) || Input.GetMouseButton(1))
         {
             Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
             if (Physics.Raycast(mouseRay, out hit, float.PositiveInfinity, this.collisionLayer))
             {
-                this.EnterFocusMode(hit.point);
+                if (this.focusActive == false)
+                {
+                    this.EnterFocusMode(hit.point);
+                }
             }
         }
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(1))
         {
-            this.ExitFocusMode();
-        }        
+            if (this.focusActive == true)
+            {
+                this.ExitFocusMode();
+            }
+        }
     }
 
     public void SetTargetPoint(Vector3 targetPoint)
@@ -92,8 +115,16 @@ public class FocusModeManager : MonoBehaviour
 
     public void EnterFocusMode(Vector3 targetPoint)
     {
+        if (this.focusDepleted == true)
+        {
+            return;
+        }
+    
+        this.focusActive = true;
+
         this.SetTargetPoint(targetPoint);
         StartCoroutine(this.FocusModeCoroutine());
+        StartCoroutine(this.DepleteFocus());
     }
 
     private IEnumerator FocusModeCoroutine()
@@ -127,10 +158,55 @@ public class FocusModeManager : MonoBehaviour
         Camera.main.transform.rotation = Quaternion.Euler(this.targetCameraRotation);
     }
 
+    private IEnumerator DepleteFocus()
+    {
+        while (this.currentFocusTime > 0.0f && this.focusActive == true)
+        {
+            this.currentFocusTime -= this.focusChangePerFixedUpdate;
+            this.focusMeterImage.fillAmount = (this.currentFocusTime / this.totalFocusTime);
+            yield return new WaitForFixedUpdate();
+        }
+
+        if (this.currentFocusTime <= 0.0f)
+        {
+            this.focusDepleted = true;
+            this.ExitFocusMode();
+        }
+    }
+
     public void ExitFocusMode()
     {
+        this.focusActive = false;
+        
         this.StopAllCoroutines();
         StartCoroutine(this.ExitFocusModeCoroutine());
+
+        if (this.focusReplenishCoroutine == null)
+        {
+            this.focusReplenishCoroutine = StartCoroutine(this.ReplenishFocus());
+        }
+    }
+
+    private IEnumerator ReplenishFocus()
+    {
+        while ((this.currentFocusTime < this.totalFocusTime) && ((this.focusDepleted == true) || (this.focusActive == false)))
+        {
+            this.currentFocusTime += this.focusChangePerFixedUpdate;
+            this.focusMeterImage.fillAmount = (this.currentFocusTime / this.totalFocusTime);
+            yield return new WaitForFixedUpdate();
+        }
+
+        if (this.currentFocusTime > this.totalFocusTime)
+        {
+            this.currentFocusTime = this.totalFocusTime;
+        }
+
+        if (this.focusDepleted == true && this.currentFocusTime == this.totalFocusTime)
+        {
+            this.focusDepleted = false;
+        }
+        
+        this.focusReplenishCoroutine = null;
     }
 
     private IEnumerator ExitFocusModeCoroutine()
