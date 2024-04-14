@@ -45,6 +45,7 @@ public class Splitter : MonoBehaviour
             if (Physics.Raycast(mouseRay, out hit, float.PositiveInfinity, this.collisionLayer))
             {
                 this.UpdateSplitter(hit);
+                this.UpdatePredictionLines();
             }
         }
         if (Input.GetMouseButtonUp(1))
@@ -65,7 +66,10 @@ public class Splitter : MonoBehaviour
 
         this.startingPoint.transform.position = hit.point;
 
-        FocusModeManager.instance.EnterFocusMode(this.startingPoint.transform.position);
+        if (FocusModeManager.instance.focusOnClick == true)
+        {
+            FocusModeManager.instance.EnterFocusMode(this.startingPoint.transform.position);
+        }
     }
 
     private void UpdateSplitter(RaycastHit hit)
@@ -82,9 +86,26 @@ public class Splitter : MonoBehaviour
 
         this.lineRenderer.SetPosition(0, this.startingPoint.transform.position);
         this.lineRenderer.SetPosition(1, this.endingPoint.transform.position);
-
-        //FocusModeManager.instance.SetTargetPoint(Vector3.Lerp(this.startingPoint.transform.position, this.endingPoint.transform.position, 0.5f));
     }
+
+    private void UpdatePredictionLines()
+    {
+        Vector3 origin = this.startingPoint.transform.position;
+        Vector3 direction = (this.endingPoint.transform.position - this.startingPoint.transform.position).normalized;
+        RaycastHit[] hits = Physics.RaycastAll(origin, direction, this.currentDistance, this.splittableLayer);
+
+        if (hits.Length > 0)
+        {
+            for (int i = 0; i < hits.Length; i++)
+            {
+                SplittableObject splitComponent = hits[i].collider.gameObject.GetComponent<SplittableObject>();
+                if (splitComponent != null)
+                {
+                    splitComponent.UpdatePredictionLines(direction, (this.currentDistance / this.maxDistance));
+                }
+            }
+        }
+    }   
 
     private void ExecuteSplits()
     {
@@ -113,7 +134,10 @@ public class Splitter : MonoBehaviour
 
         this.lineRenderer.SetPosition(0, this.startingPoint.transform.position);
         this.lineRenderer.SetPosition(1, this.startingPoint.transform.position);
-
-        FocusModeManager.instance.ExitFocusMode();
+        
+        if (FocusModeManager.instance.focusOnClick == true)
+        {
+            FocusModeManager.instance.ExitFocusMode();
+        }
     }
 }

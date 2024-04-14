@@ -25,6 +25,8 @@ public class FocusModeManager : MonoBehaviour
 
     private Vector3 targetCameraHolderPosition;
 
+    public bool focusOnClick = false;
+
     private void Awake()
     {
         if (instance == null)
@@ -44,17 +46,30 @@ public class FocusModeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-    /*    
-    if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.F))
         {
-            this.EnterFocusMode();
+            this.focusOnClick = !this.focusOnClick;
+        }
+    
+        if (this.focusOnClick == true)
+        {
+            return;
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(mouseRay, out hit, float.PositiveInfinity, this.collisionLayer))
+            {
+                this.EnterFocusMode(hit.point);
+            }
         }
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            this.StopAllCoroutines();
             this.ExitFocusMode();
-        }
-        */
+        }        
     }
 
     public void SetTargetPoint(Vector3 targetPoint)
@@ -69,7 +84,7 @@ public class FocusModeManager : MonoBehaviour
 
     public void EnterFocusMode(Vector3 targetPoint)
     {
-        this.SetTargetPoint(targetPoint);    
+        this.SetTargetPoint(targetPoint);
         StartCoroutine(this.FocusModeCoroutine());
     }
 
@@ -123,6 +138,7 @@ public class FocusModeManager : MonoBehaviour
     */
     public void ExitFocusMode()
     {
+        this.StopAllCoroutines();
         StartCoroutine(this.ExitFocusModeCoroutine());
     }
 

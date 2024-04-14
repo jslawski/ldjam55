@@ -131,7 +131,10 @@ public class SpeedSplitter : MonoBehaviour
         this.currentPosition = hit.point;
         this.AddPreviousPosition(this.currentPosition);
 
-        FocusModeManager.instance.EnterFocusMode(this.currentPosition);
+        if (FocusModeManager.instance.focusOnClick == true)
+        {
+            FocusModeManager.instance.EnterFocusMode(this.currentPosition);
+        }
 
         if (this.isDebug == true)
         {
@@ -205,7 +208,10 @@ public class SpeedSplitter : MonoBehaviour
             this.CleanupDebugSplitter();
         }
 
-        FocusModeManager.instance.ExitFocusMode();
+        if (FocusModeManager.instance.focusOnClick == true)
+        {
+            FocusModeManager.instance.ExitFocusMode();
+        }
     }
 
     private void CleanupDebugSplitter()

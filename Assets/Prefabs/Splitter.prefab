@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 535402358552199421}
   - component: {fileID: 3491351206047555497}
   m_Layer: 0
-  m_Name: LineRenderer
+  m_Name: SliceLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -160,7 +160,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 1, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.25
@@ -313,6 +313,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1056435772788105002}
+  - component: {fileID: 2752200499255275236}
   m_Layer: 0
   m_Name: Splitter
   m_TagString: Untagged
@@ -338,3 +339,24 @@ Transform:
   - {fileID: 535402358552199421}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2752200499255275236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9139027458523105657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45628341836c74247bfffb052aef9f50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingPoint: {fileID: 3012042525230574774}
+  endingPoint: {fileID: 5073138273015702663}
+  splittableLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  currentDistance: 0
