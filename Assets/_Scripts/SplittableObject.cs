@@ -44,6 +44,9 @@ public class SplittableObject : MonoBehaviour
     [SerializeField]
     private ParticleSystem bounceBurstParticle;
 
+    [SerializeField]
+    private GameObject splitParticlePrefab;
+
     public Rigidbody rigidBody;
 
     private int inertFrames = 5;
@@ -191,6 +194,10 @@ public class SplittableObject : MonoBehaviour
 
         MergeManager.instance.AddUnmergedObject(splittable1);
         MergeManager.instance.AddUnmergedObject(splittable2);
+
+        GameObject particleInstance = Instantiate(this.splitParticlePrefab, this.gameObject.transform.position, new Quaternion());
+
+        particleInstance.transform.LookAt(particleInstance.transform.position + splitDirection, Vector3.forward);
     }
 
     public void Launch(Vector3 launchDirection)
@@ -210,6 +217,8 @@ public class SplittableObject : MonoBehaviour
         {
             LevelTimer.instance.StartTimer();
         }
+
+        
     }
 
     private void CalculateSpawnAndLaunchVectors(Vector3 splitDirection, float splitVelocityPercentage)

@@ -178,6 +178,7 @@ MonoBehaviour:
   predictionDistance: 30
   framePredicted: 0
   bounceBurstParticle: {fileID: 481142350614738385}
+  splitParticlePrefab: {fileID: 1370376038273729653, guid: e54809424ba60644a9b1dae3045afcc9, type: 3}
   rigidBody: {fileID: 6178632102424588411}
   previousVelocity: {x: 0, y: 0, z: 0}
 --- !u!1 &6529229764875207664
