@@ -49,7 +49,7 @@ public class ScoreKeeper : MonoBehaviour
 
     private void Start()
     {
-        this.personalBestScore = LevelList.GetCurrentLevel().personalBestScore;
+        //this.personalBestScore = LevelList.GetCurrentLevel().personalBestScore;
 
         LevelTimer.instance.onTimerCompleted -= this.UpdatePersonalBestScore;
         LevelTimer.instance.onTimerCompleted += this.UpdatePersonalBestScore;

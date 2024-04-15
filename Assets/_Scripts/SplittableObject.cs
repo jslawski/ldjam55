@@ -41,6 +41,9 @@ public class SplittableObject : MonoBehaviour
     [HideInInspector]
     public bool framePredicted;
 
+    [SerializeField]
+    private ParticleSystem bounceBurstParticle;
+
     public Rigidbody rigidBody;
 
     private int inertFrames = 5;
@@ -289,6 +292,9 @@ public class SplittableObject : MonoBehaviour
         {
             Vector3 reflectionVector = Vector3.Reflect(this.previousVelocity, collision.contacts[0].normal);
             this.rigidBody.velocity = reflectionVector;
+
+            this.bounceBurstParticle.Stop();
+            this.bounceBurstParticle.Play();
         }
     }
 
