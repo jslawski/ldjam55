@@ -154,7 +154,7 @@ Material:
     - _ZWrite: 0
     - _alpha: 0.046
     - _distortionAmount: -0.08
-    - _loopDelay: 2
+    - _loopDelay: 5
     - _offset: 0
     - _ringThickness: 0.33
     - _speed: 1
