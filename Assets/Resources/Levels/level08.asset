@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelIndex: 8
   sceneName: level08
-  levelName: Split Me Daddy
+  levelName: Kapteyn's Star
   levelDifficulty: '***'
   imageFileName: 04
   timeLimit: 10

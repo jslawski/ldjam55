@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelIndex: 0
   sceneName: level00
-  levelName: Will Split
+  levelName: Proxima Centauri
   levelDifficulty: '*'
   imageFileName: 00
   timeLimit: 10

@@ -197,6 +197,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UniversalLevelComponents
       objectReference: {fileID: 0}
+    - target: {fileID: 2412403448359241307, guid: 71fcad61e0ad8a34ca52963366146dce, type: 3}
+      propertyPath: unmergedObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 905262718}
     - target: {fileID: 4811325073224681353, guid: 71fcad61e0ad8a34ca52963366146dce, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 50.30005
@@ -308,6 +312,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5923714c98a68f94dbfc9f5833ab14e3, type: 3}
+--- !u!114 &905262718 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7617395127485035596, guid: 5923714c98a68f94dbfc9f5833ab14e3, type: 3}
+  m_PrefabInstance: {fileID: 905262717}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf4e48fb1d692545804ed33a590272a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &954127233 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 398071650591460302, guid: 5923714c98a68f94dbfc9f5833ab14e3, type: 3}
@@ -480,6 +495,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: triangleWalls
       objectReference: {fileID: 0}
+    - target: {fileID: 7640101746656341418, guid: 5290503af0e250b4cb44b96ea1e54167, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e7ea9073b7291bc48aa55afc92876344, type: 2}
     - target: {fileID: 8835916763908814338, guid: 5290503af0e250b4cb44b96ea1e54167, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
