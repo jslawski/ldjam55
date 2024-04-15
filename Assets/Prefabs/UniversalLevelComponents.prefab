@@ -49,6 +49,7 @@ MonoBehaviour:
   badObjectPrefab: {fileID: 6277313059597502053, guid: e37cb9d88eb7ace4b87200cb45255bf4, type: 3}
   unmergedObjects:
   - {fileID: 0}
+  mergeParticles: {fileID: 6393742384372423508, guid: 076c6f967a209c64fb61e4d1b1fa8142, type: 3}
 --- !u!1 &95984177520500055
 GameObject:
   m_ObjectHideFlags: 0

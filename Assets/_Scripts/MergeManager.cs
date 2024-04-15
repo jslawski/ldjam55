@@ -36,6 +36,9 @@ public class MergeManager : MonoBehaviour
     private List<SplittableObject> unmergedObjects;
     private List<MergePair> mergingPairs;
 
+    [SerializeField]
+    private GameObject mergeParticles;
+
     int spawnIndex = 0;
 
     private void Awake()
@@ -132,6 +135,9 @@ public class MergeManager : MonoBehaviour
         splittableComponent.Launch(launchVelocity);
 
         this.AddUnmergedObject(splittableComponent);
+
+        GameObject particleInstance = Instantiate(this.mergeParticles, spawnPoint, new Quaternion());
+        particleInstance.transform.localScale = newScale;
     }
 
     private Alignment GetCompositeAlignment(Alignment alignment1, Alignment alignment2)

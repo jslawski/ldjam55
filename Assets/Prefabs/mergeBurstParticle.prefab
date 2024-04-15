@@ -9808,6 +9808,7 @@ GameObject:
   - component: {fileID: 6470407197758309401}
   - component: {fileID: 1094316062723594787}
   - component: {fileID: 4315046466412455823}
+  - component: {fileID: 1487727629514094795}
   m_Layer: 0
   m_Name: mergeBurstParticle
   m_TagString: Untagged
@@ -14629,3 +14630,15 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &1487727629514094795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6393742384372423508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1f50162b3eda9c4787521604e023223, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
