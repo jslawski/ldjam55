@@ -21,13 +21,12 @@ public class LeaderboardEntryObject : MonoBehaviour
 
     public void UpdateEntry(string username, float score)
     {
-        if (username == string.Empty || score == 0)
-        {
-            this.gameObject.SetActive(false);
+        this.gameObject.SetActive(true);
+        
+        if (username == "" || score == 0)
+        {            
             return;
         }
-
-        this.gameObject.SetActive(true);
         
         this.username.text = username;
         this.scoreText.text = Mathf.RoundToInt(score).ToString();

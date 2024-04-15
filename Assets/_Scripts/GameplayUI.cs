@@ -20,18 +20,29 @@ public class GameplayUI : MonoBehaviour
     
     private void Awake()
     {
-        this.timerText.text = LevelList.GetCurrentLevel().timeLimit.ToString();
+        this.timerText.text = LevelList.GetCurrentLevel().timeLimit.ToString() + ".00";
         this.goalText.text = LevelList.GetCurrentLevel().levelName;
+        this.scoreText.text = "0";
+
+        string levelStats = PlayerPrefs.GetString(LevelList.GetCurrentLevel().sceneName, "");
+        string[] levelStatsArray = levelStats.Split(',');
+        
+        this.personalBestText.text = (levelStats == "") ? "0" : levelStatsArray[0];
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (LevelTimer.instance.timerStarted == false)
+        {
+            return;
+        }
+    
         this.timerImage.fillAmount = LevelTimer.instance.GetImageFloatAmount();
         this.timerText.text = this.GetFormattedTimerText(LevelTimer.instance.GetCurrentTime());
 
         this.scoreText.text = ScoreKeeper.instance.currentScore.ToString();
-        this.scoreText.text = ScoreKeeper.instance.personalBestScore.ToString();
+        this.personalBestText.text = ScoreKeeper.instance.GetPersonalBestScore().ToString();
     }
 
     private string GetFormattedTimerText(float currentTime)

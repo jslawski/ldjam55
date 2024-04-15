@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
+using UnityEngine.SceneManagement;
 
 public class ScoreBall
 {
@@ -28,7 +30,7 @@ public class ScoreKeeper : MonoBehaviour
     private List<ScoreBall> scoreBalls;
     
     public int currentScore = 0;
-    public int personalBestScore = 0;
+    private int personalBestScore = 0;
 
     public int neutralBallCount = 0;
     public int goodBallCount = 0;
@@ -46,7 +48,10 @@ public class ScoreKeeper : MonoBehaviour
 
     private void Start()
     {
-        //this.personalBestScore = LevelList.GetCurrentLevel().personalBestScore;
+        string levelStats = PlayerPrefs.GetString(LevelList.GetCurrentLevel().sceneName, "");
+        string[] levelStatsArray = levelStats.Split(',');
+
+        this.personalBestScore = (levelStats == "") ? 0 : Int32.Parse(levelStatsArray[0]);
 
         LevelTimer.instance.onTimerCompleted -= this.UpdatePersonalBestScore;
         LevelTimer.instance.onTimerCompleted += this.UpdatePersonalBestScore;
@@ -57,11 +62,6 @@ public class ScoreKeeper : MonoBehaviour
         this.currentScore += holeScore * scoredObject.GetScoreMultiplier();
         this.UpdateBallCounts(scoredObject.objectAlignment);
         this.scoreBalls.Add(new ScoreBall(scoredObject));
-
-        if (this.currentScore > this.personalBestScore)
-        {
-            this.personalBestScore = this.currentScore;
-        }
     }
 
     private void UpdateBallCounts(Alignment alignment)
@@ -84,9 +84,22 @@ public class ScoreKeeper : MonoBehaviour
 
     private void UpdatePersonalBestScore()
     {
-        if (this.currentScore == this.personalBestScore)
-        { 
-            //Upload a new personal best to database
+        if (this.currentScore >= this.personalBestScore)
+        {
+            string prefsString = ScoreKeeper.instance.personalBestScore.ToString() + "," +
+                            ScoreKeeper.instance.neutralBallCount + "," +
+                            ScoreKeeper.instance.goodBallCount + "," +
+                            ScoreKeeper.instance.badBallCount;
+
+            PlayerPrefs.SetString(SceneManager.GetActiveScene().name, prefsString);
+
+            this.personalBestScore = this.currentScore;
         }
+    }
+
+    public int GetPersonalBestScore()
+    {
+        this.UpdatePersonalBestScore();
+        return this.personalBestScore;
     }
 }

@@ -29,6 +29,17 @@ public class SplashMenu : MonoBehaviour
     {
         yield return new WaitForSeconds(3.0f);
 
-        SceneLoader.instance.LoadScene(this.nextSceneName);
+        string playerName = PlayerPrefs.GetString("name", "");
+
+        if (playerName == "")
+        {
+            SceneLoader.instance.LoadScene("LoginScene");
+        }
+        else
+        {
+            SceneLoader.instance.LoadScene("LevelSelect");
+        }
+
+        //SceneLoader.instance.LoadScene(this.nextSceneName);
     }
 }

@@ -57,14 +57,17 @@ public class LevelSummary : MonoBehaviour
         this.levelName.text = setupLevel.levelName;
 
         string levelStats = PlayerPrefs.GetString(setupLevel.sceneName, "");
-
         string[] levelStatsArray = levelStats.Split(',');
 
         this.playerScore.text = (levelStats == "") ? "Unbeaten" : levelStatsArray[0];
+        
+        this.neutralBallsCountText.text = (levelStats == "") ? "00" : levelStatsArray[1];
+        this.goodBallsCountText.text = (levelStats == "") ? "00" : levelStatsArray[2];
+        this.badBallsCountText.text = (levelStats == "") ? "00" : levelStatsArray[3];
 
+        this.playerRank.text = PlayerPrefs.GetString("name", "");
 
-
-        //Setup ball counts here
+        LeaderboardManager.instance.RefreshLeaderboard(setupLevel.sceneName);
     }
 
     public void PlayButtonPressed()

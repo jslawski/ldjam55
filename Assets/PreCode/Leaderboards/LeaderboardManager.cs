@@ -5,11 +5,13 @@ public class LeaderboardUpdate
 {
     public string username;
     public float value;
+    public string tableName;
 
-    public LeaderboardUpdate(string newName, float newValue)
+    public LeaderboardUpdate(string newName, float newValue, string tableName)
     {
         this.username = newName;
         this.value = newValue;
+        this.tableName = tableName;
     }
 }
 
@@ -38,14 +40,6 @@ public class LeaderboardManager : MonoBehaviour
 
         this.leaderboardEntryObjects = GetComponentsInChildren<LeaderboardEntryObject>(true);
         this.queuedUpdates = new Queue<LeaderboardUpdate>();
-
-        this.RefreshLeaderboard();
-    }
-
-    public void EnableLeaderboard()
-    {
-        this.leaderboardObject.SetActive(true);
-        this.RefreshLeaderboard();
     }
 
     public void DisableLeaderboard()
@@ -53,15 +47,15 @@ public class LeaderboardManager : MonoBehaviour
         this.leaderboardObject.SetActive(false);
     }
 
-    public void RefreshLeaderboard()
+    public void RefreshLeaderboard(string tableName)
     {
-        this.RequestLeaderboard();
+        this.RequestLeaderboard(tableName);
     }
 
     #region Get Leaderboard
-    private void RequestLeaderboard()
+    private void RequestLeaderboard(string tableName)
     {
-        GetCabbageLeaderboardAsyncRequest request = new GetCabbageLeaderboardAsyncRequest(this.RequestLeaderboardSuccess, this.RequestLeaderboardFailure);
+        GetCabbageLeaderboardAsyncRequest request = new GetCabbageLeaderboardAsyncRequest(tableName, this.RequestLeaderboardSuccess, this.RequestLeaderboardFailure);
         request.Send();
     }
 
@@ -90,7 +84,7 @@ public class LeaderboardManager : MonoBehaviour
     #region UpdateLeaderboard
     private void UpdateLeaderboard(LeaderboardUpdate updateValues)
     {
-        UpdateCabbageLeaderboardAsyncRequest request = new UpdateCabbageLeaderboardAsyncRequest(updateValues.username, updateValues.value.ToString(), this.UpdateLeaderboardSuccess, this.UpdateLeaderboardFailure);
+        UpdateCabbageLeaderboardAsyncRequest request = new UpdateCabbageLeaderboardAsyncRequest(updateValues.username, updateValues.value.ToString(), updateValues.tableName, this.UpdateLeaderboardSuccess, this.UpdateLeaderboardFailure);
         request.Send();
     }
 
@@ -119,9 +113,9 @@ public class LeaderboardManager : MonoBehaviour
         }
     }
 
-    public void QueueLeaderboardUpdate(string username, float value)
+    public void QueueLeaderboardUpdate(string username, float value, string tableName)
     {
-        this.queuedUpdates.Enqueue(new LeaderboardUpdate(username, value));        
+        this.queuedUpdates.Enqueue(new LeaderboardUpdate(username, value, tableName));
     }
 
     private void FixedUpdate()

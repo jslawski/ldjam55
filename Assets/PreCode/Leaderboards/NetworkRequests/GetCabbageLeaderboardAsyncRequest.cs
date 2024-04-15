@@ -3,11 +3,13 @@ using CabbageNetwork;
 
 public class GetCabbageLeaderboardAsyncRequest : AsyncRequest
 {
-    public GetCabbageLeaderboardAsyncRequest(NetworkRequestSuccess successCallback = null, NetworkRequestFailure failureCallback = null)
+    public GetCabbageLeaderboardAsyncRequest(string tableName, NetworkRequestSuccess successCallback = null, NetworkRequestFailure failureCallback = null)
     {
-        string url = ServerSecrets.ServerName + "twitchBot/leaderboard/getCabbageLeaderboard.php";
+        string url = ServerSecrets.ServerName + "ldjam55/leaderboard/getCabbageLeaderboard.php";
 
         this.form = new WWWForm();
+
+        this.form.AddField("tableName", tableName);
 
         this.SetupRequest(url, successCallback, failureCallback);
     }

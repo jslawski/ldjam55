@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
     private float secondsBeforeEndScreen = 2.0f;
 
     private bool levelEnded = false;
-
+    
+    [SerializeField]
     private GameObject endScreen;
 
     private void Awake()
@@ -20,8 +21,6 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
-
-        this.endScreen = GameObject.Find("EndScreen");
     }
 
     private void Start()
@@ -53,6 +52,14 @@ public class GameManager : MonoBehaviour
     private void EndLevel()
     {
         this.levelEnded = true;
+
+        string playerName = PlayerPrefs.GetString("name", "");
+
+        if (playerName != "")
+        {
+            LeaderboardManager.instance.QueueLeaderboardUpdate(playerName, ScoreKeeper.instance.GetPersonalBestScore(), LevelList.GetCurrentLevel().sceneName);
+        }
+        
         StartCoroutine(this.DisplayEndScreenAfterDelay());
     }
 

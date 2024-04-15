@@ -25,6 +25,21 @@ public class SceneLoader : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                if (Input.GetKeyDown(KeyCode.Z))
+                {
+                    PlayerPrefs.DeleteAll();
+                    this.LoadScene("LoginScene");
+                }
+            }
+        }
+    }
+
     public void LoadScene(string sceneName)
     {
         this.nextSceneName = sceneName;

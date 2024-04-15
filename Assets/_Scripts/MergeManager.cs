@@ -64,11 +64,6 @@ public class MergeManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.R))
-        {
-            SceneManager.LoadScene("SampleScene");
-        }
-    
         this.AccumulateMergePairs();
         this.MergeAllPairs();
     }

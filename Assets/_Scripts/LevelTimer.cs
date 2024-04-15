@@ -64,7 +64,10 @@ public class LevelTimer : MonoBehaviour
 
     private void TimerEnd()
     {
-        Debug.LogError("TIMES UP!");
+        if (this.onTimerCompleted != null)
+        {
+            this.onTimerCompleted();
+        }
     }
 
     public float GetImageFloatAmount()

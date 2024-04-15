@@ -30,15 +30,16 @@ public class EndScreen : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI nextLevelNameText;
 
-    //Put leaderboard stuff here too
-
-
     // Start is called before the first frame update
     void Start()
     {
+        this.rankText.text = PlayerPrefs.GetString("name", "");
+
         this.SetBallCounts();
         this.SetScoreElements();
         this.SetLevelInfo();
+
+        LeaderboardManager.instance.RefreshLeaderboard(LevelList.GetCurrentLevel().sceneName);
     }
 
     private void SetBallCounts()
@@ -51,7 +52,7 @@ public class EndScreen : MonoBehaviour
     private void SetScoreElements()
     {
         this.scoreText.text = ScoreKeeper.instance.currentScore.ToString();
-        this.personalBestText.text = ScoreKeeper.instance.personalBestScore.ToString();
+        this.personalBestText.text = ScoreKeeper.instance.GetPersonalBestScore().ToString();
     }
 
     private void SetLevelInfo()
@@ -71,7 +72,7 @@ public class EndScreen : MonoBehaviour
 
     public void NextLevelButtonClicked()
     {
-        Level nextLevel = LevelList.GetLevel(LevelList.GetCurrentLevel().levelIndex++);
+        Level nextLevel = LevelList.GetLevel((LevelList.GetCurrentLevel().levelIndex + 1));
 
         if (nextLevel != null)
         {
