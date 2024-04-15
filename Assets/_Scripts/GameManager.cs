@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,7 +10,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private float secondsBeforeEndScreen = 2.0f;
 
-    //Have an EndScreen reference here
+    private bool levelEnded = false;
+
+    private GameObject endScreen;
 
     private void Awake()
     {
@@ -17,7 +20,8 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
-        
+
+        this.endScreen = GameObject.Find("EndScreen");
     }
 
     private void Start()
@@ -26,8 +30,29 @@ public class GameManager : MonoBehaviour
         LevelTimer.instance.onTimerCompleted += this.EndLevel;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.R))
+        {
+            if (this.levelEnded == true)
+            {
+                SceneLoader.instance.LoadScene(SceneManager.GetActiveScene().name);
+            }
+            else
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("LevelSelect");
+        }
+    }
+
     private void EndLevel()
     {
+        this.levelEnded = true;
         StartCoroutine(this.DisplayEndScreenAfterDelay());
     }
 
@@ -38,7 +63,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void DisplayEndScreen()
-    { 
-    
+    {
+        this.endScreen.SetActive(true);
     }
 }
