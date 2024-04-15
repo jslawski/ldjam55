@@ -27,6 +27,14 @@ public class LevelSelectManager : MonoBehaviour
         this.LoadLevelsIntoScene();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Q))
+        {
+            SceneLoader.instance.LoadScene("MainMenu");
+        }
+    }
+
     private void SetupLevelList()
     {
         LevelList.SetupList(Resources.LoadAll<Level>("Levels"));

@@ -39,7 +39,7 @@ public class LoginManager : MonoBehaviour
         if (this.ValidateName(nameField.text) == true)
         {
             PlayerPrefs.SetString("name", nameField.text);
-            SceneLoader.instance.LoadScene("LevelSelect");
+            SceneLoader.instance.LoadScene("MainMenu");
         }
         else
         {

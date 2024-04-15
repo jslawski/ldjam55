@@ -37,7 +37,7 @@ public class SplashMenu : MonoBehaviour
         }
         else
         {
-            SceneLoader.instance.LoadScene("LevelSelect");
+            SceneLoader.instance.LoadScene("MainMenu");
         }
 
         //SceneLoader.instance.LoadScene(this.nextSceneName);
