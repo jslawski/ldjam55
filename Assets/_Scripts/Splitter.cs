@@ -164,6 +164,11 @@ public class Splitter : MonoBehaviour
                 if (splitComponent != null)
                 {
                     splitComponent.Split(direction, (this.currentDistance / this.maxDistance));
+
+                    if (TutorialManager.instance.hasFocused == false)
+                    {
+                        TutorialManager.instance.hasFocused = true;
+                    }
                 }
             }
         }

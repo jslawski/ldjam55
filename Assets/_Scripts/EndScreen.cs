@@ -75,7 +75,8 @@ public class EndScreen : MonoBehaviour
 
     public void NextLevelButtonClicked()
     {
-        Level nextLevel = LevelList.GetLevel((LevelList.GetCurrentLevel().levelIndex + 1));
+        LevelList.SetLevelIndex(LevelList.GetCurrentLevel().levelIndex + 1);
+        Level nextLevel = LevelList.GetCurrentLevel();
 
         if (nextLevel != null)
         {

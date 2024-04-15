@@ -17,7 +17,9 @@ public class GameplayUI : MonoBehaviour
     private TextMeshProUGUI scoreText;
     [SerializeField]
     private TextMeshProUGUI personalBestText;
+
     
+
     private void Awake()
     {
         this.timerText.text = LevelList.GetCurrentLevel().timeLimit.ToString() + ".00";

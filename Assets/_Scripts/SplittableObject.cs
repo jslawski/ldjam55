@@ -218,7 +218,10 @@ public class SplittableObject : MonoBehaviour
             LevelTimer.instance.StartTimer();
         }
 
-        
+        if (TutorialManager.instance.hasSplit == false)
+        {
+            TutorialManager.instance.hasSplit = true;
+        }
     }
 
     private void CalculateSpawnAndLaunchVectors(Vector3 splitDirection, float splitVelocityPercentage)
