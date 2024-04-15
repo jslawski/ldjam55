@@ -8,9 +8,8 @@ public class Level : ScriptableObject
     public int levelIndex;
     public string sceneName;
     public string levelName;
-    public int personalBestScore;
+    public string levelDifficulty;
     public string imageFileName;
-    public int scoreGoal;
     public float timeLimit;
 
     public string nextLevelName;

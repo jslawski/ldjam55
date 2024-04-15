@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ced8702599265c4a90f6fd3f43700c4, type: 3}
-  m_Name: level1
+  m_Name: level04
   m_EditorClassIdentifier: 
-  levelIndex: 0
-  sceneName: 
-  levelName: 
-  personalBestScore: 0
-  imageFileName: 
+  levelIndex: 4
+  sceneName: level04
+  levelName: Split Me Daddy
+  levelDifficulty: '***'
+  imageFileName: 04
+  timeLimit: 10
+  nextLevelName: 

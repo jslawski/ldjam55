@@ -23,6 +23,7 @@ public class FadePanelManager : MonoBehaviour
     public void FadeToBlack()
     {
         StopAllCoroutines();
+        this.fadePanel.enabled = true;
         this.SetAlpha(0.0f);
         StartCoroutine(this.FadeToBlackCoroutine());
     }
@@ -30,6 +31,7 @@ public class FadePanelManager : MonoBehaviour
     public void FadeFromBlack()
     {
         StopAllCoroutines();
+        this.fadePanel.enabled = true;
         this.SetAlpha(1.0f);
         StartCoroutine(this.FadeFromBlackCoroutine());
     }
@@ -50,6 +52,8 @@ public class FadePanelManager : MonoBehaviour
 
             yield return new WaitForFixedUpdate();
         }
+
+        this.fadePanel.enabled = false;
 
         if (this.OnFadeSequenceComplete != null)
         {

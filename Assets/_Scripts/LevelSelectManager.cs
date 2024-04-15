@@ -23,6 +23,8 @@ public class LevelSelectManager : MonoBehaviour
         }
 
         this.SetupLevelList();
+
+        this.LoadLevelsIntoScene();
     }
 
     private void SetupLevelList()

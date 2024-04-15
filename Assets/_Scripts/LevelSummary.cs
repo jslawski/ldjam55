@@ -45,6 +45,15 @@ public class LevelSummary : MonoBehaviour
     {
         this.associatedLevel = setupLevel;
 
+        if (setupLevel.levelIndex < 10)
+        {
+            this.levelIndexText.text = "0" + setupLevel.levelIndex.ToString() + setupLevel.levelDifficulty;
+        }
+        else
+        {
+            this.levelIndexText.text = setupLevel.levelIndex.ToString() + setupLevel.levelDifficulty;
+        }
+
         this.levelName.text = setupLevel.levelName;
 
         string levelStats = PlayerPrefs.GetString(setupLevel.sceneName, "");
@@ -52,6 +61,8 @@ public class LevelSummary : MonoBehaviour
         string[] levelStatsArray = levelStats.Split(',');
 
         this.playerScore.text = (levelStats == "") ? "Unbeaten" : levelStatsArray[0];
+
+
 
         //Setup ball counts here
     }

@@ -54,6 +54,11 @@ public class AudioManager : MonoBehaviour
 
     public int Play(AudioClip clip, AudioChannelSettings channelSettings)
     {
+        if (clip == null)
+        {
+            return -1;
+        }
+    
         AudioChannel newAudioChannel = this.GetAudioChannel(clip, channelSettings);
         newAudioChannel.Play();
         this.playingAudioChannels.Add(newAudioChannel);
