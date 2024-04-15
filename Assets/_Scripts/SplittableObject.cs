@@ -6,9 +6,9 @@ public enum Alignment { Good, Bad, Neutral};
 
 public class SplittableObject : MonoBehaviour
 {
-    public const float GOOD_MULTIPLIER = 1.5f;
+    public const float GOOD_MULTIPLIER = 1.0f;
     public const float BAD_MULTIPLIER = -1.0f;
-    public const float NEUTRAL_MULTIPLIER = 1.0f;
+    public const float NEUTRAL_MULTIPLIER = 2.0f;
 
     public bool splittable = false;
     
