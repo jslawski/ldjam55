@@ -218,7 +218,7 @@ public class FocusModeManager : MonoBehaviour
 
         while (remainingPercentage < 0.98f && ((this.focusDepleted == true) || (this.focusActive == false)))
         {
-            percentageIncrement = (1.0f / this.totalFocusTime) * Time.unscaledDeltaTime;
+            percentageIncrement = (3.0f / this.totalFocusTime) * Time.unscaledDeltaTime;
 
             remainingPercentage += percentageIncrement;
 
