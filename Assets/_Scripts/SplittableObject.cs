@@ -196,8 +196,8 @@ public class SplittableObject : MonoBehaviour
         MergeManager.instance.AddUnmergedObject(splittable2);
 
         GameObject particleInstance = Instantiate(this.splitParticlePrefab, this.gameObject.transform.position, new Quaternion());
-
         particleInstance.transform.LookAt(particleInstance.transform.position + splitDirection, Vector3.forward);
+        particleInstance.transform.localScale = new Vector3(this.rigidBody.mass, this.rigidBody.mass, this.rigidBody.mass);
     }
 
     public void Launch(Vector3 launchDirection)
