@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: dotsShockwave
+  m_Name: dots_Level02
   m_Shader: {fileID: -6465566751694194690, guid: 5205fc848fadb484bbd9df27997e24cd, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -29,7 +29,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2986
   stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
@@ -141,7 +141,7 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
-    - _QueueOffset: 0
+    - _QueueOffset: -14
     - _ReceiveShadows: 1
     - _SampleGI: 0
     - _Smoothness: 0.5
@@ -152,11 +152,11 @@ Material:
     - _Surface: 1
     - _WorkflowMode: 1
     - _ZWrite: 0
-    - _alpha: 1
-    - _distortionAmount: 0
+    - _alpha: 0.046
+    - _distortionAmount: -0.08
     - _loopDelay: 1
-    - _offset: 0.501
-    - _ringThickness: 0.62
+    - _offset: 0
+    - _ringThickness: 0.27
     - _speed: 0
     m_Colors:
     - Texture_Tiling: {r: 1, g: 1, b: 0, a: 0}
@@ -167,15 +167,15 @@ Material:
     - _MaskOffset: {r: 0, g: 0, b: 0, a: 0}
     - _MaskScrollSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _MaskTiling: {r: 1, g: 1, b: 0, a: 0}
-    - _RingColor: {r: 1, g: 1, b: 1, a: 1}
+    - _RingColor: {r: 14.928526, g: 14.928526, b: 14.928526, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _TextureOffset: {r: 0, g: 0, b: 0, a: 0}
     - _TextureScrollSpeed: {r: 0, g: 0, b: 0, a: 0}
-    - _centerPoint: {r: 0.5, g: 0.5, b: 0, a: 0}
-    - _color: {r: 5.992157, g: 5.992157, b: 5.992157, a: 1}
+    - _centerPoint: {r: 0.799, g: 0.5, b: 0, a: 0}
+    - _color: {r: 1, g: 1, b: 1, a: 1}
     - _colorGradientSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _colorGradientTileOffset: {r: 0, g: 0, b: 0, a: 0}
     - _maskTilingOffset: {r: 10, g: 10, b: 0, a: 0}
     - _ringScale: {r: 1, g: 1, b: 0, a: 0}
-    - _textureTilingOffset: {r: 10, g: 10, b: 0, a: 0}
+    - _textureTilingOffset: {r: 12, g: 10, b: 0, a: 0}
   m_BuildTextureStacks: []
