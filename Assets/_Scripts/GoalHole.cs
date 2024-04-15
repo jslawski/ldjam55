@@ -6,8 +6,27 @@ public class GoalHole : MonoBehaviour
 {
     [SerializeField]
     private AudioClip victorySound;
+
+    private Collider goalCollider;
+    
     [SerializeField]
     private int scoreValue = 100;
+
+    private void Awake()
+    {
+        this.goalCollider = GetComponent<Collider>();
+    }
+
+    private void Start()
+    {
+        LevelTimer.instance.onTimerCompleted -= DisableGoal;
+        LevelTimer.instance.onTimerCompleted += DisableGoal;
+    }
+
+    private void DisableGoal()
+    {
+        this.goalCollider.enabled = false;
+    }
 
     private void OnTriggerEnter(Collider other)
     {

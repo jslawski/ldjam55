@@ -50,6 +50,8 @@ public class FocusModeManager : MonoBehaviour
 
     private float tValue = 0.0f;
 
+    private bool levelEnded = false;
+
     private void Awake()
     {
         if (instance == null)
@@ -68,22 +70,18 @@ public class FocusModeManager : MonoBehaviour
         this.targetCameraRotation = this.originalCameraRotation;
 
         this.currentFocusTime = this.totalFocusTime;
-    }
 
+        LevelTimer.instance.onTimerCompleted -= this.ForceExitFocusMode;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.F))
-        {
-            this.focusOnClick = !this.focusOnClick;
-        }
-    
-        if (this.focusOnClick == true)
+        if (this.levelEnded == true)
         {
             return;
         }
-        
+    
         if (Input.GetKey(KeyCode.Space) || Input.GetMouseButton(1))
         {
             Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -193,6 +191,12 @@ public class FocusModeManager : MonoBehaviour
             this.focusMeterImage.fillAmount = 0.0f;
             this.ExitFocusMode();
         }
+    }
+
+    private void ForceExitFocusMode()
+    {
+        this.levelEnded = true;
+        this.ExitFocusMode();
     }
 
     public void ExitFocusMode()

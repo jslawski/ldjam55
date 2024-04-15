@@ -28,6 +28,11 @@ public class ScoreKeeper : MonoBehaviour
     private List<ScoreBall> scoreBalls;
     
     public int currentScore = 0;
+    public int personalBestScore = 0;
+
+    public int neutralBallCount = 0;
+    public int goodBallCount = 0;
+    public int badBallCount = 0;
 
     [SerializeField]
     private TextMeshProUGUI scoreText;
@@ -42,6 +47,14 @@ public class ScoreKeeper : MonoBehaviour
         this.scoreBalls = new List<ScoreBall>();
     }
 
+    private void Start()
+    {
+        this.personalBestScore = LevelList.GetCurrentLevel().personalBestScore;
+
+        LevelTimer.instance.onTimerCompleted -= this.UpdatePersonalBestScore;
+        LevelTimer.instance.onTimerCompleted += this.UpdatePersonalBestScore;
+    }
+
     private void Update()
     {
         this.scoreText.text = this.currentScore.ToString();
@@ -50,6 +63,38 @@ public class ScoreKeeper : MonoBehaviour
     public void UpdateScore(SplittableObject scoredObject, int holeScore)
     {
         this.currentScore += holeScore * scoredObject.GetScoreMultiplier();
+        this.UpdateBallCounts(scoredObject.objectAlignment);
         this.scoreBalls.Add(new ScoreBall(scoredObject));
+
+        if (this.currentScore > this.personalBestScore)
+        {
+            this.personalBestScore = this.currentScore;
+        }
+    }
+
+    private void UpdateBallCounts(Alignment alignment)
+    {
+        switch (alignment)
+        {
+            case Alignment.Neutral:
+                this.neutralBallCount++;
+                break;
+            case Alignment.Good:
+                this.goodBallCount++;
+                break;
+            case Alignment.Bad:
+                this.badBallCount++;
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void UpdatePersonalBestScore()
+    {
+        if (this.currentScore == this.personalBestScore)
+        { 
+            //Upload a new personal best to database
+        }
     }
 }

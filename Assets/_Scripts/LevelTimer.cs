@@ -20,6 +20,9 @@ public class LevelTimer : MonoBehaviour
     [SerializeField]
     private float startingFillAmount;
 
+    public delegate void TimerCompleted();
+    public TimerCompleted onTimerCompleted;
+
     private void Awake()
     {
         this.timerText = GetComponentInChildren<TextMeshProUGUI>();

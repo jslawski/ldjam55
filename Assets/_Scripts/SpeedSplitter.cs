@@ -47,13 +47,27 @@ public class SpeedSplitter : MonoBehaviour
     private float minSpeedThreshold = 10f;
     private float maxSpeed = 120.0f;
 
+    private bool controlsDisabled = false;
+
     private void Awake()
     {
         this.previousPositions = new Queue<PreviousPosition>();
     }
 
+    private void Start()
+    {
+        LevelTimer.instance.onTimerCompleted -= this.DisableControls;
+        LevelTimer.instance.onTimerCompleted += this.DisableControls;
+    }
+
     private void Update()
     {
+        if (this.controlsDisabled)
+        {
+            this.CleanupSplitter();
+            return;
+        }
+    
         if (Input.GetMouseButtonDown(0) == true && FocusModeManager.instance.focusActive == false)
         {
             Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -79,6 +93,11 @@ public class SpeedSplitter : MonoBehaviour
         {
             this.CleanupSplitter();
         }
+    }
+
+    private void DisableControls()
+    {
+        this.controlsDisabled = true;
     }
 
     private void AddPreviousPosition(Vector3 newPosition)

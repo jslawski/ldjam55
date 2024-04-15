@@ -20,15 +20,30 @@ public class Splitter : MonoBehaviour
 
     private bool isSetup = false;
 
+    private bool controlsDisabled = false;
+
     // Start is called before the first frame update
     void Start()
     {
         this.lineRenderer = GetComponentInChildren<LineRenderer>();
+
+        LevelTimer.instance.onTimerCompleted -= this.DisableControls;
+        LevelTimer.instance.onTimerCompleted += this.DisableControls;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (this.controlsDisabled == true)
+        {
+            if (this.isSetup == true)
+            {
+                this.CleanupSplitter();
+            }
+
+            return;
+        }
+    
         if (FocusModeManager.instance.focusActive == false)
         {
             if (this.isSetup == true)
@@ -74,6 +89,11 @@ public class Splitter : MonoBehaviour
             this.ExecuteSplits();
             this.CleanupSplitter();
         }
+    }
+
+    private void DisableControls()
+    {
+        this.controlsDisabled = true;
     }
 
     private void SetupSplitter(RaycastHit hit)
