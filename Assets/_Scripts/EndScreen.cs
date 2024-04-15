@@ -50,7 +50,6 @@ public class EndScreen : MonoBehaviour
 
     private void SetScoreElements()
     {
-        //Figure out Rank Stuff
         this.scoreText.text = ScoreKeeper.instance.currentScore.ToString();
         this.personalBestText.text = ScoreKeeper.instance.personalBestScore.ToString();
     }
@@ -71,7 +70,16 @@ public class EndScreen : MonoBehaviour
     }
 
     public void NextLevelButtonClicked()
-    { 
-        
+    {
+        Level nextLevel = LevelList.GetLevel(LevelList.GetCurrentLevel().levelIndex++);
+
+        if (nextLevel != null)
+        {
+            SceneLoader.instance.LoadScene(nextLevel.sceneName);
+        }
+        else
+        {
+            SceneLoader.instance.LoadScene("LevelSelect");
+        }
     }
 }

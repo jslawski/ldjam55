@@ -21,7 +21,7 @@ public class GameplayUI : MonoBehaviour
     private void Awake()
     {
         this.timerText.text = LevelList.GetCurrentLevel().timeLimit.ToString();
-        this.goalText.text = LevelList.GetCurrentLevel().scoreGoal.ToString();
+        this.goalText.text = LevelList.GetCurrentLevel().levelName;
     }
 
     // Update is called once per frame
