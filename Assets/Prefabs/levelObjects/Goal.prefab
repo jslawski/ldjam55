@@ -148,7 +148,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   victorySound: {fileID: 8300000, guid: 5083eede76d08b94abc886f2ed7da593, type: 3}
-  scoreValue: 100
+  scoreValue: 10000
+  particlePrefab: {fileID: 2642270418974485401, guid: 730864490da974d439619649790011b6, type: 3}
 --- !u!1001 &8743903307974079636
 PrefabInstance:
   m_ObjectHideFlags: 0

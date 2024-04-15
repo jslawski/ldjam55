@@ -116,6 +116,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cursorTransform: {fileID: 6439247997290895718}
+  focusImage: {fileID: 9082468525671154337}
+  cursorImage: {fileID: 4105005618424951263}
 --- !u!1 &5581877975563986955
 GameObject:
   m_ObjectHideFlags: 0

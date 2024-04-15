@@ -3112,6 +3112,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: CursorCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4105005618424951263, guid: 0c42d7ea05209dc4d8f5df01c8ccba1e, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4105005618424951263, guid: 0c42d7ea05209dc4d8f5df01c8ccba1e, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4105005618424951263, guid: 0c42d7ea05209dc4d8f5df01c8ccba1e, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8367594179040249852, guid: 0c42d7ea05209dc4d8f5df01c8ccba1e, type: 3}
       propertyPath: m_Pivot.x
       value: 0

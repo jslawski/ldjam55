@@ -40,6 +40,9 @@ public class EndScreen : MonoBehaviour
         this.SetLevelInfo();
 
         LeaderboardManager.instance.RefreshLeaderboard(LevelList.GetCurrentLevel().sceneName);
+
+        CursorManager.instance.HideFocusMeter();
+        CursorManager.instance.SetCursorToBlack();
     }
 
     private void SetBallCounts()

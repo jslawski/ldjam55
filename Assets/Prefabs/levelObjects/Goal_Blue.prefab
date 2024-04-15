@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: d69be87560da0fa4198cd673a58491e4, type: 2}
+    - target: {fileID: 3386782021561433133, guid: 3c9b6ffe7ae452242b964bb82f2754c4, type: 3}
+      propertyPath: scoreValue
+      value: 20000
+      objectReference: {fileID: 0}
     - target: {fileID: 4909254143325994347, guid: 3c9b6ffe7ae452242b964bb82f2754c4, type: 3}
       propertyPath: ColorModule.gradient.maxGradient.key1.b
       value: 1
@@ -26,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5990969025155029137, guid: 3c9b6ffe7ae452242b964bb82f2754c4, type: 3}
       propertyPath: m_Name
-      value: Goal_2
+      value: Goal_Blue
       objectReference: {fileID: 0}
     - target: {fileID: 7552614532041396910, guid: 3c9b6ffe7ae452242b964bb82f2754c4, type: 3}
       propertyPath: m_LocalPosition.x

@@ -12,6 +12,9 @@ public class GoalHole : MonoBehaviour
     [SerializeField]
     private int scoreValue = 100;
 
+    [SerializeField]
+    private GameObject particlePrefab;
+
     private void Awake()
     {
         this.goalCollider = GetComponent<Collider>();
@@ -41,6 +44,8 @@ public class GoalHole : MonoBehaviour
             AudioManager.instance.Play(this.victorySound, channelSettings);
 
             ScoreKeeper.instance.UpdateScore(splittableComponent, this.scoreValue);
+
+            Instantiate(this.particlePrefab, this.transform.position, new Quaternion());
         }
     }
 }

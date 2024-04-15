@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 980af4fadaf2160448df99d9f171ab8d, type: 2}
+    - target: {fileID: 3386782021561433133, guid: 3c9b6ffe7ae452242b964bb82f2754c4, type: 3}
+      propertyPath: scoreValue
+      value: 30000
+      objectReference: {fileID: 0}
     - target: {fileID: 4909254143325994347, guid: 3c9b6ffe7ae452242b964bb82f2754c4, type: 3}
       propertyPath: ColorModule.gradient.maxGradient.key1.b
       value: 1
