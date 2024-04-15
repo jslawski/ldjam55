@@ -43,7 +43,8 @@ public class LoginManager : MonoBehaviour
         }
         else
         {
-            this.warningText.enabled = true;
+            this.warningText.gameObject.SetActive(true);
+            this.nameField.ActivateInputField();
         }
     }
 }
