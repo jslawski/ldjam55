@@ -101,7 +101,7 @@ Material:
     - _ZWriteControl: 0
     m_Colors:
     - _Base_Color: {r: 0, g: 0, b: 0, a: 1}
-    - _Color2: {r: 0.9109671, g: 0.9109671, b: 0.9109671, a: 1}
+    - _Color2: {r: 8.574187, g: 8.574187, b: 8.574187, a: 1}
     - _Texture2_TilingOffset: {r: 0, g: 1, b: 0, a: 0.49}
     - _Texture_TilingOffset: {r: 0, g: 50, b: 0, a: -24.16}
     - _TilingOffset: {r: 0, g: 40, b: 0, a: -19.06}

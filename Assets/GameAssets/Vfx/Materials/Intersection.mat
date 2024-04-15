@@ -102,7 +102,7 @@ Material:
     m_Colors:
     - _Base_Color: {r: 415.87326, g: 415.87326, b: 415.87326, a: 1}
     - _Color2: {r: 0.74213827, g: 0.74213827, b: 0.74213827, a: 1}
-    - _Texture2_TilingOffset: {r: 0, g: 1, b: 0, a: 0.46}
+    - _Texture2_TilingOffset: {r: 0, g: 1, b: 0, a: 0.5}
     - _Texture_TilingOffset: {r: 0, g: 40, b: 0, a: -19.15}
     - _TilingOffset: {r: 0, g: 40, b: 0, a: -19.06}
   m_BuildTextureStacks: []

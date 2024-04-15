@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6750340740220107286
+--- !u!114 &-8816261306340315674
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: dotsShockwave
-  m_Shader: {fileID: -6465566751694194690, guid: 5205fc848fadb484bbd9df27997e24cd, type: 3}
+  m_Name: Obstacle
+  m_Shader: {fileID: -6465566751694194690, guid: 312cfc7902ee56e439bca5d3bc89ac4f, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -29,16 +29,17 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 2000
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 29bd217521a696146834005cb2f10413, type: 3}
-        m_Scale: {x: 20, y: 15}
+        m_Texture: {fileID: 2800000, guid: 42ab4cf84448b4746a7c7928baf36669, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
@@ -61,15 +62,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 29bd217521a696146834005cb2f10413, type: 3}
-        m_Scale: {x: 20, y: 15}
-        m_Offset: {x: 0, y: 0}
-    - _MaskScrollingTexture:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MaskStaticTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 42ab4cf84448b4746a7c7928baf36669, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -89,19 +82,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _colorGradient:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _mask:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _texture:
-        m_Texture: {fileID: 2800000, guid: 29bd217521a696146834005cb2f10413, type: 3}
+        m_Texture: {fileID: 2800000, guid: 42ab4cf84448b4746a7c7928baf36669, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -119,20 +100,20 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaClip: 0
-    - _AlphaFade: 1
     - _AlphaToMask: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BlendOp: 0
     - _BumpScale: 1
+    - _CastShadows: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DstBlend: 10
-    - _DstBlendAlpha: 10
+    - _DstBlend: 0
+    - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
@@ -147,35 +128,19 @@ Material:
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _SrcBlend: 5
+    - _SrcBlend: 1
     - _SrcBlendAlpha: 1
-    - _Surface: 1
+    - _Surface: 0
     - _WorkflowMode: 1
-    - _ZWrite: 0
-    - _alpha: 1
-    - _distortionAmount: 0
-    - _loopDelay: 1
-    - _offset: 0.501
-    - _ringThickness: 0.62
-    - _speed: 0
+    - _ZTest: 4
+    - _ZWrite: 1
+    - _ZWriteControl: 0
     m_Colors:
-    - Texture_Tiling: {r: 1, g: 1, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorTint: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _MaskOffset: {r: 0, g: 0, b: 0, a: 0}
-    - _MaskScrollSpeed: {r: 0, g: 0, b: 0, a: 0}
-    - _MaskTiling: {r: 1, g: 1, b: 0, a: 0}
-    - _RingColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Gradient_Color: {r: 0.03773582, g: 0.03773582, b: 0.03773582, a: 0}
+    - _Outline_Color: {r: 1, g: 1, b: 1, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _TextureOffset: {r: 0, g: 0, b: 0, a: 0}
-    - _TextureScrollSpeed: {r: 0, g: 0, b: 0, a: 0}
-    - _centerPoint: {r: 0.5, g: 0.5, b: 0, a: 0}
-    - _color: {r: 5.992157, g: 5.992157, b: 5.992157, a: 1}
-    - _colorGradientSpeed: {r: 0, g: 0, b: 0, a: 0}
-    - _colorGradientTileOffset: {r: 0, g: 0, b: 0, a: 0}
-    - _maskTilingOffset: {r: 10, g: 10, b: 0, a: 0}
-    - _ringScale: {r: 1, g: 1, b: 0, a: 0}
-    - _textureTilingOffset: {r: 10, g: 10, b: 0, a: 0}
+    - _TilingOffset: {r: 1, g: 1.38, b: 0, a: -0.41}
   m_BuildTextureStacks: []
