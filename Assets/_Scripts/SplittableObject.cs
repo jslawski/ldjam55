@@ -202,6 +202,11 @@ public class SplittableObject : MonoBehaviour
     
         this.SpawnNewSplittableObjects(splitDirection, splitVelocityPercentage);
         MergeManager.instance.RemoveUnmergedObject(this);
+
+        if (LevelTimer.instance.timerStarted == false)
+        {
+            LevelTimer.instance.StartTimer();
+        }
     }
 
     private void CalculateSpawnAndLaunchVectors(Vector3 splitDirection, float splitVelocityPercentage)
