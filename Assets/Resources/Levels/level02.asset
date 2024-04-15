@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelIndex: 2
   sceneName: level02
-  levelName: Celestiball
+  levelName: Luyten 726-8
   levelDifficulty: '**'
   imageFileName: 02
   timeLimit: 10

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelIndex: 3
   sceneName: level03
-  levelName: A Boy and His Balls
+  levelName: Procyon B
   levelDifficulty: '***'
   imageFileName: 03
   timeLimit: 10

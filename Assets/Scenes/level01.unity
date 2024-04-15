@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -392,7 +392,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 47b16afbf0127384ca99a55e1e6d1888, type: 2}
+  - {fileID: 2100000, guid: 1bcf9598eaf30224786e1ae98b482830, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -672,6 +672,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5923714c98a68f94dbfc9f5833ab14e3, type: 3}
+--- !u!114 &905262718 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7617395127485035596, guid: 5923714c98a68f94dbfc9f5833ab14e3, type: 3}
+  m_PrefabInstance: {fileID: 905262717}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf4e48fb1d692545804ed33a590272a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1112336091 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3123200743404864040, guid: c7287a878b1378649a41bac9a3c8247c, type: 3}
@@ -699,6 +710,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UniversalLevelComponents
       objectReference: {fileID: 0}
+    - target: {fileID: 2412403448359241307, guid: 71fcad61e0ad8a34ca52963366146dce, type: 3}
+      propertyPath: unmergedObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 905262718}
     - target: {fileID: 4811325073224681353, guid: 71fcad61e0ad8a34ca52963366146dce, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 50.30005

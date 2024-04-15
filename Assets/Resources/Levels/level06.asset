@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelIndex: 6
   sceneName: level06
-  levelName: Split Me Daddy
+  levelName: Epsilon Indi
   levelDifficulty: '***'
   imageFileName: 04
   timeLimit: 10

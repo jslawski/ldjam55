@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: dots_Level01
+  m_Name: dots_Level03
   m_Shader: {fileID: -6465566751694194690, guid: 5205fc848fadb484bbd9df27997e24cd, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -171,7 +171,7 @@ Material:
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _TextureOffset: {r: 0, g: 0, b: 0, a: 0}
     - _TextureScrollSpeed: {r: 0, g: 0, b: 0, a: 0}
-    - _centerPoint: {r: 0.91, g: 0.49, b: 0, a: 0}
+    - _centerPoint: {r: 0.87, g: 0.5, b: 0, a: 0}
     - _color: {r: 1, g: 1, b: 1, a: 1}
     - _colorGradientSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _colorGradientTileOffset: {r: 0, g: 0, b: 0, a: 0}

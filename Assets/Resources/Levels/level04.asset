@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelIndex: 4
   sceneName: level04
-  levelName: Split Me Daddy
+  levelName: 61 Cygni
   levelDifficulty: '***'
   imageFileName: 04
   timeLimit: 10

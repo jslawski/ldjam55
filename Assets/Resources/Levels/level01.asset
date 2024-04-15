@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelIndex: 1
   sceneName: level01
-  levelName: Gooner's Paradise
+  levelName: Sirius A
   levelDifficulty: '*'
   imageFileName: 01
   timeLimit: 10
