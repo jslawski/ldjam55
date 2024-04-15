@@ -13,7 +13,7 @@ public class GoalHole : MonoBehaviour
     private int scoreValue = 100;
 
     [SerializeField]
-    private GameObject particlePrefab;
+    private ParticleSystem particles;
 
     private void Awake()
     {
@@ -45,7 +45,8 @@ public class GoalHole : MonoBehaviour
 
             ScoreKeeper.instance.UpdateScore(splittableComponent, this.scoreValue);
 
-            Instantiate(this.particlePrefab, this.transform.position, new Quaternion());
+            this.particles.Stop();
+            this.particles.Play();
         }
     }
 }

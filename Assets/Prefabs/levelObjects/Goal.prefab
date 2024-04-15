@@ -149,7 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   victorySound: {fileID: 8300000, guid: 5083eede76d08b94abc886f2ed7da593, type: 3}
   scoreValue: 10000
-  particlePrefab: {fileID: 2642270418974485401, guid: 730864490da974d439619649790011b6, type: 3}
+  particles: {fileID: 2556590642971389682}
 --- !u!1001 &8743903307974079636
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -223,6 +223,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29feea305a938d646b1d3a4a58261bd3, type: 3}
+--- !u!198 &2556590642971389682 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6494824117870385766, guid: 29feea305a938d646b1d3a4a58261bd3, type: 3}
+  m_PrefabInstance: {fileID: 8743903307974079636}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7391563266070587634 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2291362560913366118, guid: 29feea305a938d646b1d3a4a58261bd3, type: 3}
