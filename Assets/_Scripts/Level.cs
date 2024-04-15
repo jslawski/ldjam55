@@ -10,6 +10,8 @@ public class Level : ScriptableObject
     public string levelName;
     public int personalBestScore;
     public string imageFileName;
+    public int scoreGoal;
+    public float timeLimit;
 
     public string nextLevelName;
 }

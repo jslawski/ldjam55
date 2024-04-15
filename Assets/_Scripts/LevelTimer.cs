@@ -12,22 +12,19 @@ public class LevelTimer : MonoBehaviour
     [SerializeField]
     private float startingTime = 10.0f;
     private float currentTime;
-    private TextMeshProUGUI timerText;
-    private Image timerImage;
 
     public bool timerStarted = false;
 
     [SerializeField]
     private float startingFillAmount;
 
+    private float currentFillAmount;
+
     public delegate void TimerCompleted();
     public TimerCompleted onTimerCompleted;
 
     private void Awake()
     {
-        this.timerText = GetComponentInChildren<TextMeshProUGUI>();
-        this.timerImage = GetComponentInChildren<Image>();
-
         if (instance == null)
         {
             instance = this;
@@ -37,9 +34,7 @@ public class LevelTimer : MonoBehaviour
     private void Start()
     {
         this.timerStarted = false;
-        this.currentTime = this.startingTime;    
-        this.timerText.text = this.GetFormattedTimerText();
-        this.timerImage.fillAmount = this.startingFillAmount;
+        this.currentTime = this.startingTime;
     }
 
     public void StartTimer()
@@ -51,7 +46,6 @@ public class LevelTimer : MonoBehaviour
     private IEnumerator TimerCoroutine()
     {
         this.currentTime = this.startingTime;
-        float currentFillAmount = 0.0f;
 
         float percentFinished = 0.0f;
 
@@ -60,8 +54,7 @@ public class LevelTimer : MonoBehaviour
             this.currentTime -= Time.deltaTime;
             percentFinished = (this.startingTime - this.currentTime) / this.startingTime;
 
-            this.timerImage.fillAmount = (this.startingFillAmount * (1.0f - percentFinished));
-            this.timerText.text = this.GetFormattedTimerText();
+            this.currentFillAmount = (this.startingFillAmount * (1.0f - percentFinished));
 
             yield return null;
         }
@@ -74,37 +67,13 @@ public class LevelTimer : MonoBehaviour
         Debug.LogError("TIMES UP!");
     }
 
-    private string GetFormattedTimerText()
+    public float GetImageFloatAmount()
     {
-        string formattedTimer = string.Empty;
+        return this.currentFillAmount;
+    }
 
-        if (this.currentTime <= 0.0f)
-        {
-            return "00.00";
-        }
-
-        if (this.currentTime < 10.0f)
-        {
-            formattedTimer += "0";
-        }
-
-        formattedTimer += Mathf.FloorToInt(this.currentTime).ToString();
-
-        if (this.currentTime % 1 == 0)
-        {
-            formattedTimer += ".00";
-            return formattedTimer;
-        }
-
-        decimal decimalValues = Math.Round((decimal)(this.currentTime) % 1, 2);
-        
-        formattedTimer += decimalValues.ToString().Substring(1);
-
-        if (formattedTimer.Length < 5)
-        {
-            formattedTimer += "0";
-        }
-
-        return formattedTimer;
+    public float GetCurrentTime()
+    {
+        return this.currentTime;
     }
 }

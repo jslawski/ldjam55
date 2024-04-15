@@ -34,9 +34,6 @@ public class ScoreKeeper : MonoBehaviour
     public int goodBallCount = 0;
     public int badBallCount = 0;
 
-    [SerializeField]
-    private TextMeshProUGUI scoreText;
-
     private void Awake()
     {
         if (instance == null)
@@ -53,11 +50,6 @@ public class ScoreKeeper : MonoBehaviour
 
         LevelTimer.instance.onTimerCompleted -= this.UpdatePersonalBestScore;
         LevelTimer.instance.onTimerCompleted += this.UpdatePersonalBestScore;
-    }
-
-    private void Update()
-    {
-        this.scoreText.text = this.currentScore.ToString();
     }
 
     public void UpdateScore(SplittableObject scoredObject, int holeScore)
