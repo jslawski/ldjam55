@@ -61,7 +61,7 @@ public class EndScreen : MonoBehaviour
     private void SetLevelInfo()
     {
         Level currentLevel = LevelList.GetCurrentLevel();
-        this.currentLevelNumberText.text = currentLevel.levelIndex.ToString();
+        this.SetFormattedLevelNumber();
         this.currentLevelNameText.text = currentLevel.levelName;
 
         Level nextLevel = LevelList.GetLevel(currentLevel.levelIndex + 1);
@@ -70,6 +70,20 @@ public class EndScreen : MonoBehaviour
         {
             this.nextLevelNumberText.text = nextLevel.levelIndex.ToString();
             this.nextLevelNameText.text = nextLevel.levelName;
+        }
+    }
+
+    private void SetFormattedLevelNumber()
+    {
+        Level setupLevel = LevelList.GetCurrentLevel();    
+
+        if (setupLevel.levelIndex < 10)
+        {
+            this.currentLevelNumberText.text = "0" + setupLevel.levelIndex.ToString() + setupLevel.levelDifficulty;
+        }
+        else
+        {
+            this.currentLevelNumberText.text = setupLevel.levelIndex.ToString() + setupLevel.levelDifficulty;
         }
     }
 

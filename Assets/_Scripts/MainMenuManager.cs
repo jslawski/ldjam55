@@ -12,6 +12,8 @@ public class MainMenuManager : MonoBehaviour
         this.allMusic = Resources.LoadAll<AudioClip>("Soundtracks");
         this.musicSettings = new AudioChannelSettings(true, 1.0f, 1.0f, 0.5f, "BGM");
 
+        CursorManager.instance.SetCursorToBlack();
+
         this.PlayRandomSong();
     }
 

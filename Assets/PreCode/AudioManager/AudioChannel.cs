@@ -22,6 +22,16 @@ public class AudioChannelSettings
         this.mixerName = mixerName;
         this.sourceTransform = sourceTransform;
     }
+
+    public AudioChannelSettings(AudioChannelSettings newSettings)
+    {
+        this.loop = newSettings.loop;
+        this.minPitch = newSettings.minPitch;
+        this.maxPitch = newSettings.maxPitch;
+        this.volume = newSettings.volume;
+        this.mixerName = newSettings.mixerName;
+        this.sourceTransform = newSettings.sourceTransform;
+    }
 }
 
 public class AudioChannel : MonoBehaviour
