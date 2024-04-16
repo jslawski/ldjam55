@@ -3426,6 +3426,7 @@ MonoBehaviour:
   focusActive: 0
   focusMeterImage: {fileID: 5529441894357774371}
   focusSound: {fileID: 8300000, guid: 1d1638d251ff2ff4bb708ad35e76db79, type: 3}
+  outOfFocus: {fileID: 8300000, guid: c95e0e79dafed5f48bb5c6b0d06cc808, type: 3}
 --- !u!1001 &1791125691829146519
 PrefabInstance:
   m_ObjectHideFlags: 0

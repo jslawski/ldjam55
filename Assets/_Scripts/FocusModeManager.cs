@@ -56,6 +56,10 @@ public class FocusModeManager : MonoBehaviour
     private AudioClip focusSound;
     private AudioChannelSettings focusAudioSettings;
 
+    [SerializeField]
+    private AudioClip outOfFocus;
+    private AudioChannelSettings outOfFocusAudioSettings;
+
     private int channelID = -1;
 
     private void Awake()
@@ -66,6 +70,7 @@ public class FocusModeManager : MonoBehaviour
         }
 
         this.focusAudioSettings = new AudioChannelSettings(false, 0.9f, 1.1f, 0.8f, "SFX");
+        this.outOfFocusAudioSettings = new AudioChannelSettings(false, 1f, 1f, 1f, "SFX");
     }
 
     // Start is called before the first frame update
@@ -129,6 +134,7 @@ public class FocusModeManager : MonoBehaviour
     {           
         if (this.focusDepleted == true)
         {
+            AudioManager.instance.Play(this.outOfFocus, this.outOfFocusAudioSettings);
             return;
         }
     

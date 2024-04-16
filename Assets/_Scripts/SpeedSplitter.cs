@@ -49,6 +49,10 @@ public class SpeedSplitter : MonoBehaviour
 
     private bool controlsDisabled = false;
 
+    [SerializeField]
+    private AudioClip splitSound;
+    
+
     private void Awake()
     {
         this.previousPositions = new Queue<PreviousPosition>();
