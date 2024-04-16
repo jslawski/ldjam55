@@ -16,6 +16,6 @@ MonoBehaviour:
   sceneName: level09
   levelName: Kruger 60 A
   levelDifficulty: '***'
-  imageFileName: 04
+  imageFileName: 09
   timeLimit: 10
   nextLevelName: 

@@ -16,6 +16,6 @@ MonoBehaviour:
   sceneName: level07
   levelName: Tau Ceti
   levelDifficulty: '***'
-  imageFileName: 04
+  imageFileName: 07
   timeLimit: 10
   nextLevelName: level08
