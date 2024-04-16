@@ -48,7 +48,7 @@ public class GoalHole : MonoBehaviour
 
             AudioChannelSettings badChannelSettings = new AudioChannelSettings(false, 0.8f, 1.2f, 0.5f, "SFX");
             AudioChannelSettings goodChannelSettings = new AudioChannelSettings(false, 0.8f, 1.2f, 0.75f, "SFX");
-            AudioChannelSettings neutralChannelSettings = new AudioChannelSettings(false, 0.8f, 1.2f, 0.75f, "SFX");
+            AudioChannelSettings neutralChannelSettings = new AudioChannelSettings(false, 1.0f, 1.0f, 0.75f, "SFX");
 
             if (splittableComponent.objectAlignment == Alignment.Bad)
             {

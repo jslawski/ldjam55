@@ -15,6 +15,10 @@ public class LevelSelectManager : MonoBehaviour
     [SerializeField]
     private GameObject levelSummaryObject;
 
+    private AudioClip[] allMusic;
+    private AudioChannelSettings musicSettings;
+
+
     private void Awake()
     {            
         if (instance == null)
@@ -25,6 +29,20 @@ public class LevelSelectManager : MonoBehaviour
         this.SetupLevelList();
 
         this.LoadLevelsIntoScene();
+
+        this.allMusic = Resources.LoadAll<AudioClip>("Soundtracks");
+        this.musicSettings = new AudioChannelSettings(true, 1.0f, 1.0f, 0.5f, "BGM");
+    }
+
+    private void Start()
+    {
+        this.PlayRandomSong();
+    }
+
+    private void PlayRandomSong()
+    {
+        int randomIndex = Random.Range(0, this.allMusic.Length);
+        AudioManager.instance.Play(this.allMusic[randomIndex], this.musicSettings);
     }
 
     private void Update()

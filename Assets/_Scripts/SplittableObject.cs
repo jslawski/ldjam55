@@ -80,7 +80,13 @@ public class SplittableObject : MonoBehaviour
         StartCoroutine(this.ActivateSplittableFlag());
         StartCoroutine(this.ActivateMergeableFlag());
 
-        this.collisionAudioSettings = new AudioChannelSettings(false, 0.8f, 1.2f, 0.5f, "SFX");
+        this.collisionAudioSettings = new AudioChannelSettings(false, 0.8f, 1.2f, 0.25f, "SFX");
+    }
+
+    private void Start()
+    {
+        LevelTimer.instance.onTimerCompleted -= this.StopMoving;
+        LevelTimer.instance.onTimerCompleted += this.StopMoving;
     }
 
     private void Update()
@@ -91,6 +97,16 @@ public class SplittableObject : MonoBehaviour
         {
             this.mergeable = true;
         }
+    }
+
+    private void OnDestroy()
+    {
+        LevelTimer.instance.onTimerCompleted -= this.StopMoving;
+    }
+
+    private void StopMoving()
+    {
+        this.rigidBody.velocity = Vector3.zero;
     }
 
     private void LateUpdate()
