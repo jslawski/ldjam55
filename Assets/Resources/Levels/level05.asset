@@ -16,6 +16,6 @@ MonoBehaviour:
   sceneName: level05
   levelName: Struve 2398 A
   levelDifficulty: '***'
-  imageFileName: 04
+  imageFileName: 05
   timeLimit: 10
   nextLevelName: level06

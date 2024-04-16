@@ -16,6 +16,6 @@ MonoBehaviour:
   sceneName: level08
   levelName: Kapteyn's Star
   levelDifficulty: '***'
-  imageFileName: 04
+  imageFileName: 08
   timeLimit: 10
   nextLevelName: level09
