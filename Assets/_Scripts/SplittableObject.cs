@@ -80,7 +80,7 @@ public class SplittableObject : MonoBehaviour
         StartCoroutine(this.ActivateSplittableFlag());
         StartCoroutine(this.ActivateMergeableFlag());
 
-        this.collisionAudioSettings = new AudioChannelSettings(false, 0.8f, 1.2f, 0.25f, "SFX");
+        this.collisionAudioSettings = new AudioChannelSettings(false, 0.8f, 1.2f, 0.1f, "SFX");
     }
 
     private void Start()
