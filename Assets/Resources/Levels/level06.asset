@@ -15,7 +15,7 @@ MonoBehaviour:
   levelIndex: 6
   sceneName: level06
   levelName: Epsilon Indi
-  levelDifficulty: '***'
+  levelDifficulty: '**'
   imageFileName: 06
   timeLimit: 10
   nextLevelName: level07

@@ -15,7 +15,7 @@ MonoBehaviour:
   levelIndex: 2
   sceneName: level02
   levelName: Luyten 726-8
-  levelDifficulty: '**'
+  levelDifficulty: '*'
   imageFileName: 02
   timeLimit: 10
   nextLevelName: level03

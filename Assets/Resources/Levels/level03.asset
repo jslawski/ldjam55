@@ -15,7 +15,7 @@ MonoBehaviour:
   levelIndex: 3
   sceneName: level03
   levelName: Procyon B
-  levelDifficulty: '***'
+  levelDifficulty: '**'
   imageFileName: 03
   timeLimit: 10
   nextLevelName: level04
