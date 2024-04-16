@@ -15,6 +15,13 @@ public class GoalHole : MonoBehaviour
     [SerializeField]
     private ParticleSystem particles;
 
+    [SerializeField]
+    private AudioClip badSound;
+    [SerializeField]
+    private AudioClip goodSound;
+    [SerializeField]
+    private AudioClip neutralSound;
+
     private void Awake()
     {
         this.goalCollider = GetComponent<Collider>();
@@ -39,9 +46,23 @@ public class GoalHole : MonoBehaviour
 
             MergeManager.instance.RemoveUnmergedObject(splittableComponent);
 
-            AudioChannelSettings channelSettings = new AudioChannelSettings();
+            AudioChannelSettings badChannelSettings = new AudioChannelSettings(false, 0.8f, 1.2f, 0.5f, "SFX");
+            AudioChannelSettings goodChannelSettings = new AudioChannelSettings(false, 0.8f, 1.2f, 0.75f, "SFX");
+            AudioChannelSettings neutralChannelSettings = new AudioChannelSettings(false, 0.8f, 1.2f, 0.75f, "SFX");
 
-            AudioManager.instance.Play(this.victorySound, channelSettings);
+            if (splittableComponent.objectAlignment == Alignment.Bad)
+            {
+                AudioManager.instance.Play(this.badSound, badChannelSettings);
+            }
+            else if (splittableComponent.objectAlignment == Alignment.Good)
+            {
+                AudioManager.instance.Play(this.goodSound, goodChannelSettings);
+            }
+            else
+            {
+                AudioManager.instance.Play(this.neutralSound, goodChannelSettings);
+            }
+            //AudioManager.instance.Play(this.victorySound, goodChannelSettings);
 
             ScoreKeeper.instance.UpdateScore(splittableComponent, this.scoreValue);
 

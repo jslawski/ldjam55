@@ -68,6 +68,10 @@ public class SplittableObject : MonoBehaviour
 
     private int baseMultiplier = 10;
 
+    [SerializeField]
+    private AudioClip collisionSound;
+    private AudioChannelSettings collisionAudioSettings;
+
     private void Awake()
     {
         this.splittable = false;
@@ -75,6 +79,8 @@ public class SplittableObject : MonoBehaviour
 
         StartCoroutine(this.ActivateSplittableFlag());
         StartCoroutine(this.ActivateMergeableFlag());
+
+        this.collisionAudioSettings = new AudioChannelSettings(false, 0.8f, 1.2f, 0.5f, "SFX");
     }
 
     private void Update()
@@ -307,6 +313,8 @@ public class SplittableObject : MonoBehaviour
 
             this.bounceBurstParticle.Stop();
             this.bounceBurstParticle.Play();
+
+            AudioManager.instance.Play(this.collisionSound, this.collisionAudioSettings);
         }
     }
 

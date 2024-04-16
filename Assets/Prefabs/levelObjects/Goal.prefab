@@ -150,6 +150,9 @@ MonoBehaviour:
   victorySound: {fileID: 8300000, guid: 5083eede76d08b94abc886f2ed7da593, type: 3}
   scoreValue: 10000
   particles: {fileID: 2556590642971389682}
+  badSound: {fileID: 8300000, guid: df08ee7703066934f81fa9250e682024, type: 3}
+  goodSound: {fileID: 8300000, guid: 3677f4350632fa44d9077c5b388a076e, type: 3}
+  neutralSound: {fileID: 8300000, guid: 36bb1e5674bbf74458577e154c74ab10, type: 3}
 --- !u!1001 &8743903307974079636
 PrefabInstance:
   m_ObjectHideFlags: 0

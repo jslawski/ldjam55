@@ -52,12 +52,20 @@ public class FocusModeManager : MonoBehaviour
 
     private bool levelEnded = false;
 
+    [SerializeField]
+    private AudioClip focusSound;
+    private AudioChannelSettings focusAudioSettings;
+
+    private int channelID = -1;
+
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
         }
+
+        this.focusAudioSettings = new AudioChannelSettings(false, 0.9f, 1.1f, 0.8f, "SFX");
     }
 
     // Start is called before the first frame update
@@ -124,6 +132,13 @@ public class FocusModeManager : MonoBehaviour
             return;
         }
     
+        if (this.channelID != -1)
+        {
+            AudioManager.instance.Stop(this.channelID);
+        }
+
+        this.channelID = AudioManager.instance.Play(this.focusSound, this.focusAudioSettings);
+
         this.focusActive = true;
 
         this.SetTargetPoint(targetPoint);
@@ -208,6 +223,11 @@ public class FocusModeManager : MonoBehaviour
         if (this.focusReplenishCoroutine == null)
         {
             this.focusReplenishCoroutine = StartCoroutine(this.ReplenishFocus());
+        }
+
+        if (this.channelID != -1)
+        {
+            AudioManager.instance.Stop(this.channelID);
         }
     }
 

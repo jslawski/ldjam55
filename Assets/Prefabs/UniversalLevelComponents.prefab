@@ -50,6 +50,7 @@ MonoBehaviour:
   unmergedObjects:
   - {fileID: 0}
   mergeParticles: {fileID: 6393742384372423508, guid: 076c6f967a209c64fb61e4d1b1fa8142, type: 3}
+  mergeSound: {fileID: 8300000, guid: e6a03d371d71d044d8373e741ea26012, type: 3}
 --- !u!1 &95984177520500055
 GameObject:
   m_ObjectHideFlags: 0
@@ -3424,6 +3425,7 @@ MonoBehaviour:
   focusOnClick: 0
   focusActive: 0
   focusMeterImage: {fileID: 5529441894357774371}
+  focusSound: {fileID: 8300000, guid: 1d1638d251ff2ff4bb708ad35e76db79, type: 3}
 --- !u!1001 &1791125691829146519
 PrefabInstance:
   m_ObjectHideFlags: 0

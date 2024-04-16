@@ -39,6 +39,10 @@ public class MergeManager : MonoBehaviour
     [SerializeField]
     private GameObject mergeParticles;
 
+    [SerializeField]
+    private AudioClip mergeSound;
+    private AudioChannelSettings mergeAudioSettings;
+
     int spawnIndex = 0;
 
     private void Awake()
@@ -50,6 +54,8 @@ public class MergeManager : MonoBehaviour
 
         this.unmergedObjects = new List<SplittableObject>();
         this.mergingPairs = new List<MergePair>();
+
+        this.mergeAudioSettings = new AudioChannelSettings(false, 0.8f, 1.2f, 1.3f, "SFX");
     }
 
     public void AddUnmergedObject(SplittableObject newObject)
@@ -138,6 +144,8 @@ public class MergeManager : MonoBehaviour
 
         GameObject particleInstance = Instantiate(this.mergeParticles, spawnPoint, new Quaternion());
         particleInstance.transform.localScale = newScale;
+
+        AudioManager.instance.Play(this.mergeSound, this.mergeAudioSettings);
     }
 
     private Alignment GetCompositeAlignment(Alignment alignment1, Alignment alignment2)
